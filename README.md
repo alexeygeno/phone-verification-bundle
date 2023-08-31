@@ -1,2 +1,5 @@
 # phone-verification-bundle
-A symfony bundle on top of phone-verification-php
+## Under development
+
+This Symfony bundle is built on top of [ alexeygeno/phone-verification-php ](https://github.com/alexeygeno/phone-verification-php) 
+
