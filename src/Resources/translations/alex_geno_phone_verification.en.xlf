@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="0" resname="otp">
+                <source>Your code is %code%</source>
+                <target>Your code is %code%</target>
+            </trans-unit>
+            <trans-unit id="1" resname="initiation_rate_limit">
+                <source>You can send only %sms% sms in %hours% hours</source>
+                <target>You can send only %sms% sms in %hours% hours</target>
+            </trans-unit>
+            <trans-unit id="2" resname="completion_rate_limit">
+                <source>You are trying to use an incorrect code %times% times in %minutes% minutes</source>
+                <target>You are trying to use an incorrect code %times% times in %minutes% minutes</target>
+            </trans-unit>
+            <trans-unit id="3" resname="initiation_success">
+                <source>An sms has been sent. Check your phone!</source>
+                <target>An sms has been sent. Check your phone!</target>
+            </trans-unit>
+            <trans-unit id="4" resname="completion_success">
+                <source>The verification is done!</source>
+                <target>The verification is done!</target>
+            </trans-unit>
+            <trans-unit id="5" resname="expired">
+                <source>Code is expired. You have only %minutes% minutes to use it</source>
+                <target>Code is expired. You have only %minutes% minutes to use it</target>
+            </trans-unit>
+            <trans-unit id="6" resname="incorrect">
+                <source>Code is incorrect</source>
+                <target>Code is incorrect</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

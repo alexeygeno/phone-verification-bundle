@@ -1,0 +1,40 @@
+{
+    "name": "alexgeno/phone-verification-bundle",
+    "description":"A Symfony bundle to verify a phone via notification channels. Any notification channel can be used as a sender. Redis(predis) or MongoDb can be used a storage.",
+    "type": "symfony-bundle",
+    "keywords":["phone", "verification", "verify", "sms", "2fa", "2factor","authentication", "signin",
+        "signup", "redis", "mongo", "mongodb", "verify-by-phone", "otp", "notification", "notification-channel",
+        "twilio", "messagebird", "vonage", "touch-sms", "clickatell", "jusibe", "smsc-ru", "authy", "cmsms", "46elks",
+        "sipgate", "all-my-sms", "smspoh", "turbosms", "vodafone", "africastalking", "sms77", "smsapi", "sms-broadcast"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Geno",
+            "email": "alexeygeno@gmail.com",
+            "homepage":"https://github.com/alexeygeno"
+        }
+    ],
+    "homepage": "https://github.com/alexeygeno/phone-verification-bundle",
+    "autoload": {
+        "psr-4": {
+            "AlexGeno\\PhoneVerificationBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AlexGeno\\PhoneVerificationBundle\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "alexgeno/phone-verification": "^1.0",
+        "symfony/framework-bundle": "^6.1"
+    },
+
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
