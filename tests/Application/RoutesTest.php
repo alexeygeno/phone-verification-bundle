@@ -16,7 +16,9 @@ class RoutesTest extends ApplicationTestCase
     public function test_initiation_ok(): void
     {
 
-        $this->client->request('GET', '/phone-verification/initiate/+380935258272');
+        $to = '+15417543010';
+
+        $this->client->request('GET', "/phone-verification/initiate/$to");
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(200);
@@ -142,7 +144,6 @@ class RoutesTest extends ApplicationTestCase
             if($iteration<$count) {
                 $this->assertResponseJson(['ok' => false, 'message' => $this->trans('incorrect')]);
             }else{ // limit exceeded
-                dump($iteration);
                 $this->assertResponseJson(['ok' => false, 'message' => $this->trans('completion_rate_limit', ['%times%' => $count, '%minutes%' => $periodSecs/60])]);
             }
         }

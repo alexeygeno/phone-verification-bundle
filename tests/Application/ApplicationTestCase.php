@@ -19,7 +19,6 @@ class ApplicationTestCase extends WebTestCase
         parent::setUp();
         $this->client = static::createClient();
         static::getContainer()->get('snc_redis.default')->flushdb();
-
     }
 
     protected function trans(string $id, array $parameters = [], string $domain = 'alex_geno_phone_verification', string $locale = null){

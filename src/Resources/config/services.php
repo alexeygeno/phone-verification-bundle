@@ -3,6 +3,8 @@
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use AlexGeno\PhoneVerification\Manager;
+use AlexGeno\PhoneVerificationBundle\Command\PhoneVerificationInitiateCommand;
+use AlexGeno\PhoneVerificationBundle\Command\PhoneVerificationCompleteCommand;
 use AlexGeno\PhoneVerificationBundle\Controller\PhoneVerificationController;
 use AlexGeno\PhoneVerificationBundle\ManagerFactory;
 use AlexGeno\PhoneVerificationBundle\Sender\SmsRecipient;
@@ -19,8 +21,18 @@ return static function (ContainerConfigurator $container) {
     //TODO: no autowire or autoconfigure in a bundle
     $services->set(PhoneVerificationController::class)->autowire()->autoconfigure();
 
+    $services->set(PhoneVerificationInitiateCommand::class)
+             ->args([service('phone_verification.manager.initiator'),
+                    service('translator')])
+             ->tag('console.command');
+
+    $services->set(PhoneVerificationCompleteCommand::class)
+             ->args([service('phone_verification.manager.completer'),
+                    service('translator')])
+              ->tag('console.command');
+
     $services
-        ->set('phone_verification.manager.factory', \AlexGeno\PhoneVerificationBundle\ManagerFactory::class);
+        ->set('phone_verification.manager.factory', ManagerFactory::class);
 
     $services
         ->set('phone_verification.manager.initiator', Manager::class)
