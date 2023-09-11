@@ -21,7 +21,7 @@ class PhoneVerificationCommandsTest extends KernelTestCase{
     {
         parent::setUp();
         $this->application = new Application(self::bootKernel());
-        static::getContainer()->get('snc_redis.default')->flushdb();
+        static::getContainer()->get('snc_redis.mock.default')->flushdb();
     }
 
     /**
