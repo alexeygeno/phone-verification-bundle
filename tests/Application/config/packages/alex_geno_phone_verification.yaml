@@ -1,0 +1,32 @@
+parameters:
+  alex_geno_phone_verification.rate_limit.initiate.period_secs: '%env(PHONE_VERIFICATION_RATE_LIMIT_INITIATE_PERIOD_SECS)%'
+  alex_geno_phone_verification.rate_limit.initiate.count: '%env(PHONE_VERIFICATION_RATE_LIMIT_INITIATE_COUNT)%'
+  alex_geno_phone_verification.rate_limit.complete.period_secs: '%env(PHONE_VERIFICATION_RATE_LIMIT_COMPLETE_PERIOD_SECS)%'
+  alex_geno_phone_verification.rate_limit.complete.count: '%env(PHONE_VERIFICATION_RATE_LIMIT_COMPLETE_COUNT)%'
+  alex_geno_phone_verification_otp_length: '%env(PHONE_VERIFICATION_OTP_LENGTH)%'
+alex_geno_phone_verification:
+  storage:
+    driver: redis
+    redis:
+      connection: default
+      settings:
+        prefix: pv:1
+        session_key: session
+        session_counter_key: session_counter
+    mongodb:
+      connection: default
+      settings:
+        collection_session: session
+        collection_session_counter: session_counter
+  sender:
+    transport: twilio
+  manager:
+    otp:
+      length: '%alex_geno_phone_verification_otp_length%'
+    rate_limits:
+      initiate: #for every 'to' no more than 10 initiations over 24 hours
+        period_secs: '%alex_geno_phone_verification.rate_limit.initiate.period_secs%'
+        count: '%alex_geno_phone_verification.rate_limit.initiate.count%'
+      complete: #for every 'to' no more than 5 failed completions over 5 minutes
+        period_secs: '%alex_geno_phone_verification.rate_limit.complete.period_secs%' # this is also the expiration period for OTP
+        count: '%alex_geno_phone_verification.rate_limit.complete.count%'

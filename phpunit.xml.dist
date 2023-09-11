@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         convertDeprecationsToExceptions="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Application">
+            <directory suffix="Test.php">./tests/Application</directory>
+        </testsuite>
+    </testsuites>
+    <coverage includeUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </coverage>
+    <php>
+        <ini name="display_errors" value="1" />
+        <ini name="error_reporting" value="1" />
+
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0" />
+<!--        <server name="APP_ENV" value="test" />-->
+<!--        <server name="APP_DEBUG" value="true" />-->
+
+        <server name="TWILIO_DSN" value="null://null" />
+        <server name="VONAGE_DSN" value="null://null" />
+        <server name="PHONE_VERIFICATION_OTP_LENGTH" value="6" />
+        <server name="PHONE_VERIFICATION_RATE_LIMIT_INITIATE_PERIOD_SECS" value="86400" />
+        <server name="PHONE_VERIFICATION_RATE_LIMIT_INITIATE_COUNT" value="5" />
+        <server name="PHONE_VERIFICATION_RATE_LIMIT_COMPLETE_PERIOD_SECS" value="300" />
+        <server name="PHONE_VERIFICATION_RATE_LIMIT_COMPLETE_COUNT" value="3" />
+    </php>
+</phpunit>

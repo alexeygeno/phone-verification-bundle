@@ -1,0 +1,5 @@
+framework:
+    notifier:
+        texter_transports:
+            vonage: '%env(VONAGE_DSN)%'
+            twilio: '%env(TWILIO_DSN)%'

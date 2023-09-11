@@ -1,0 +1,6 @@
+framework:
+    test: true
+    secret: 7011a2bc1bbf51da2f746547428ec733
+    http_method_override: false
+    php_errors:
+      log: true

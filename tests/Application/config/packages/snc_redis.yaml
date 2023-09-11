@@ -1,0 +1,5 @@
+snc_redis:
+    clients:
+        default:
+          type: predis
+          dsn: redis://redis
