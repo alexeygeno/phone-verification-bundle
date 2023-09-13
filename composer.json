@@ -26,10 +26,21 @@
             "AlexGeno\\PhoneVerificationBundle\\Tests\\": "tests/"
         }
     },
+    "suggest": {
+        "snc/redis-bundle": "required to use Redis as a storage",
+        "predis/predis": "required to use Redis as a storage",
+        "doctrine/mongodb-odm-bundle": "required to use MongoDB as a storage",
+        "symfony/message-bird-notifier": "required to use Messagebird as a sender's notification channel",
+        "symfony/twilio-notifier": "required to use Twilio as a sender's notification channel",
+        "symfony/vonage-notifier": "required to use Vonage as a sender's notification channel"
+    },
     "require": {
         "php": "^8.0",
         "alexgeno/phone-verification": "^1.0",
-        "symfony/framework-bundle": "^6.0"
+        "symfony/framework-bundle": "^6.0",
+        "symfony/translation": "^6.0",
+        "symfony/console": "^6.0",
+        "symfony/notifier": "^6.0"
     },
 
     "config": {
@@ -38,15 +49,15 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "snc/redis-bundle": "^4.6",
-        "predis/predis": "^2.2",
-        "m6web/redis-mock": "^5.6",
         "doctrine/mongodb-odm-bundle": "^4.6",
+        "m6web/redis-mock": "^5.6",
         "php-mock/php-mock-phpunit": "^2.7",
-        "symfony/console": "^6.0",
-        "symfony/notifier": "^6.0",
+        "predis/predis": "^2.2",
+        "snc/redis-bundle": "^4.6",
+        "symfony/message-bird-notifier": "^6.0",
+        "symfony/twilio-notifier": "^6.0",
+        "symfony/vonage-notifier": "^6.0",
         "symfony/test-pack": "^1.1",
-        "symfony/translation": "^6.0",
         "symfony/yaml": "^6.0"
     }
 }

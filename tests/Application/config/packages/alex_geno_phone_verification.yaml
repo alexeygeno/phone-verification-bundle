@@ -24,9 +24,9 @@ alex_geno_phone_verification:
     otp:
       length: '%phone_verification_otp_length%'
     rate_limits:
-      initiate: #for every 'to' no more than 10 initiations over 24 hours
+      initiate: # for every 'to' no more than 'count' initiations over 'period_secs' seconds
         period_secs: '%phone_verification.rate_limit.initiate.period_secs%'
         count: '%phone_verification.rate_limit.initiate.count%'
-      complete: #for every 'to' no more than 5 failed completions over 5 minutes
+      complete: # for every 'to' no more than 'count' failed completions over 'period_secs' seconds
         period_secs: '%phone_verification.rate_limit.complete.period_secs%' # this is also the expiration period for OTP
         count: '%phone_verification.rate_limit.complete.count%'
