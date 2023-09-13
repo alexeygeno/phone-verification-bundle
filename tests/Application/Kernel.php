@@ -20,7 +20,8 @@ final class Kernel extends BaseKernel
         return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \AlexGeno\PhoneVerificationBundle\AlexGenoPhoneVerificationBundle(),
-            new \Snc\RedisBundle\SncRedisBundle()
+            new \Snc\RedisBundle\SncRedisBundle(),
+            new \Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
         ];
     }
 

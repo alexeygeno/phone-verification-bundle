@@ -54,7 +54,7 @@ class PhoneVerificationCommandsTest extends KernelTestCase{
     public function test_initiate_fail(){
         $to = '+15417543010';
 
-        $count = static::getContainer()->getParameter('alex_geno_phone_verification.rate_limit.initiate.count');
+        $count = static::getContainer()->getParameter('phone_verification.rate_limit.initiate.count');
         $commandTester = new CommandTester($this->application->find('phone-verification:initiate'));
 
         foreach (range(0, $count) as $iteration){

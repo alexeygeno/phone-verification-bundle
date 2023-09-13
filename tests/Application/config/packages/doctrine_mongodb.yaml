@@ -1,0 +1,11 @@
+doctrine_mongodb:
+    connections:
+        default:
+            server: mongodb://mongodb
+            options: {
+                db: phone_verification
+            }
+    default_database: phone_verification
+    document_managers:
+        default:
+            auto_mapping: true

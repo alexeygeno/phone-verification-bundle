@@ -41,6 +41,7 @@
         "snc/redis-bundle": "^4.6",
         "predis/predis": "^2.2",
         "m6web/redis-mock": "^5.6",
+        "doctrine/mongodb-odm-bundle": "^4.6",
         "php-mock/php-mock-phpunit": "^2.7",
         "symfony/console": "^6.0",
         "symfony/notifier": "^6.0",
