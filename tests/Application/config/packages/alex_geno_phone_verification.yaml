@@ -9,15 +9,15 @@ alex_geno_phone_verification:
     driver: redis
     redis:
       connection: default
-      settings:
-        prefix: pv:1
-        session_key: session
-        session_counter_key: session_counter
+#      settings:
+#        prefix:
+#        session_key:
+#        session_counter_key:
     mongodb:
       connection: default
-      settings:
-        collection_session: session
-        collection_session_counter: session_counter
+#      settings:
+#        collection_session: session
+#        collection_session_counter: session_counter
   sender:
     transport: twilio
   manager:

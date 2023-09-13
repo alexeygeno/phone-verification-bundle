@@ -13,6 +13,16 @@ use AlexGeno\PhoneVerificationBundle\Exception;
 
 class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPassInterface
 {
+    private array $config;
+
+    private function config(array $configs, ContainerBuilder $container){
+        if(!isset($this->config)){
+            $configuration = $this->getConfiguration($configs, $container);
+            $this->config = $this->processConfiguration($configuration, $configs);
+        }
+        return $this->config;
+    }
+
     private function loadSender(ContainerBuilder $container, array $config){
         $container->getDefinition('phone_verification.sender')
             ->addArgument(new Reference('notifier.channel.sms')) //TODO: check existence
@@ -80,22 +90,24 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
        $loader->load('services.php');
 
-       $config = $this->processConfiguration($this->getConfiguration($configs, $container), $configs);
+       $config = $this->config($configs, $container);
 
        $this->loadSender($container, $config['sender']);
-
     }
 
     public function process(ContainerBuilder $container){
-        $processedConfig = $container->getExtensionConfig($this->getAlias());
-        $config = $container->resolveEnvPlaceholders(current($processedConfig), true);
+        $configs = $container->getExtensionConfig($this->getAlias());
 
-        $config = $container->resolveEnvPlaceholders($config, true);
+        $config = $container->resolveEnvPlaceholders($this->config($configs, $container), true);
+
         $this->processManagerFactory($container, $config['manager']);
 
         $storageDriver = $config['storage']['driver'];
         $processStorageMethodName = 'process'.ucfirst($storageDriver).'Storage';
         if(method_exists($this, $processStorageMethodName)){
+            if(!isset($config['storage'][$storageDriver])){
+                throw new Exception("The configuration {$this->getAlias()}.storage.$storageDriver is not defined");
+            }
             $this->$processStorageMethodName($container, $config['storage'][$storageDriver]);
         }else{
             throw new Exception("Not supported storage driver '{$storageDriver}'. Check the configuration.");
