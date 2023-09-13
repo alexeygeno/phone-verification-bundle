@@ -18,13 +18,13 @@ This library is built on top of [ alexeygeno/phone-verification-php ](https://gi
 
 ## Requirements
 - [Symfony 6.x](https://symfony.com/doc/6.0/index.html)
-- Any of SMS channel service: [vonage](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Vonage/README.md), [twilio](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Twilio/README.md), [messagebird](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/MessageBird/README.md)  and [many more ](https://github.com/symfony/symfony/tree/6.0/src/Symfony/Component/Notifier)
+- Any of SMS channel services: [vonage](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Vonage/README.md), [twilio](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Twilio/README.md), [messagebird](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/MessageBird/README.md)  and [many more ](https://github.com/symfony/symfony/tree/6.0/src/Symfony/Component/Notifier)
 - Any of supported storages: [snc/redis-bundle](https://github.com/snc/SncRedisBundle), [doctrine/mongodb-odm-bundle](https://github.com/doctrine/DoctrineMongoDBBundle)
 ## Installation
 ```shell
 composer require alexgeno/phone-verification-bundle snc/redis-bundle predis/predis symfony/vonage-notifier
 ```
-**Note:** Redis as a storage and Vonage as a notification channel are defaults in the configuration 
+**Note:** Redis as a storage and Vonage as an SMS channel service are defaults in the configuration 
 
 ## Usage
 #### Dependency injection
@@ -53,5 +53,5 @@ curl localhost/phone-verification/initiate/+15417543010
 {"ok":true,"message":"Sms has been sent. Check your Phone!"}
 ```
 ```shell
-curl -d "to=+15417543010&otp=1234" localhost/phone-verification/complete/+15417543010/1234
+curl localhost/phone-verification/complete/+15417543010/1234
 {"ok":true,"message":"The verification is done!"}
