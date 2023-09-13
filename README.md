@@ -12,8 +12,7 @@ This library is built on top of [ alexeygeno/phone-verification-php ](https://gi
 - Configurable length and expiration time for [OTP](https://en.wikipedia.org/wiki/One-time_password)
 - Configurable rate limits
 - Localization
-- Usage with dependency injection [dependency injection](https://symfony.com/doc/current/service_container.html#injecting-services-config-into-a-service)
-- Usage with [console commands](https://symfony.com/doc/current/console.html)
+- Usage with [dependency injection](https://symfony.com/doc/current/service_container.html#injecting-services-config-into-a-service) and [console commands](https://symfony.com/doc/current/console.html)
 - Out-of-the-box routes for quick start
 
 ## Requirements
