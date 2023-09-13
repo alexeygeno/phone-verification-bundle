@@ -1,11 +1,11 @@
 <?php
 
-namespace AlexGeno\PhoneVerificationBundle;
+namespace AlexGeno\PhoneVerificationBundle\Notifier;
 
 use AlexGeno\PhoneVerification\Sender\I;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Channel\SmsChannel;
-use AlexGeno\PhoneVerificationBundle\Sender\SmsRecipient;
+use AlexGeno\PhoneVerificationBundle\Notifier\SmsRecipient;
 
 class Sender implements I
 {

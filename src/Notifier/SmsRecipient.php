@@ -1,14 +1,10 @@
 <?php
 
-namespace AlexGeno\PhoneVerificationBundle\Sender;
+namespace AlexGeno\PhoneVerificationBundle\Notifier;
 
 use Symfony\Component\Notifier\Recipient\SmsRecipientInterface;
 use Symfony\Component\Notifier\Recipient\SmsRecipientTrait;
 
-/**
- * @author Fabien Potencier <fabien@symfony.com>
- * @author Jan Schädlich <jan.schaedlich@sensiolabs.de>
- */
 class SmsRecipient implements SmsRecipientInterface
 {
     use SmsRecipientTrait;

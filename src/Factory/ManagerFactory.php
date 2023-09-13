@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexGeno\PhoneVerificationBundle;
+namespace AlexGeno\PhoneVerificationBundle\Factory;
 
 use AlexGeno\PhoneVerification\Manager\Completer;
 use AlexGeno\PhoneVerification\Manager\Initiator;
@@ -14,7 +14,7 @@ final class ManagerFactory {
     public function __construct(
         private IStorage $storage,
         private TranslatorInterface $translator,
-        private string $domain,
+        private string $translatorDomain,
         private array $rawConfig,
     )
     {
@@ -24,15 +24,15 @@ final class ManagerFactory {
         $config = $this->rawConfig;
 
         $config['otp']['message'] = fn ($otp) =>
-            $this->translator->trans('otp', ['%code%' => $otp], $this->domain);
+            $this->translator->trans('otp', ['%code%' => $otp], $this->translatorDomain);
         $config['rate_limits']['initiate']['message'] = fn ($phone, $periodSecs, $count) =>
-            $this->translator->trans('initiation_rate_limit', ['%sms%' => $count, '%hours%' => $periodSecs / 60 / 60], $this->domain);
+            $this->translator->trans('initiation_rate_limit', ['%sms%' => $count, '%hours%' => $periodSecs / 60 / 60], $this->translatorDomain);
         $config['rate_limits']['complete']['message'] = fn ($phone, $periodSecs, $count) =>
-            $this->translator->trans('completion_rate_limit', ['%times%' => $count, '%minutes%' => $periodSecs / 60], $this->domain);
+            $this->translator->trans('completion_rate_limit', ['%times%' => $count, '%minutes%' => $periodSecs / 60], $this->translatorDomain);
         $config['otp']['message_expired'] = fn ($periodSecs, $otp) =>
-            $this->translator->trans('expired', ['%minutes%' => $periodSecs / 60], $this->domain);
+            $this->translator->trans('expired', ['%minutes%' => $periodSecs / 60], $this->translatorDomain);
         $config['otp']['message_incorrect'] = fn ($otp) =>
-            $this->translator->trans('incorrect', [], $this->domain);
+            $this->translator->trans('incorrect', [], $this->translatorDomain);
 
         return $config;
     }
