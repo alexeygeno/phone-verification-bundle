@@ -16,8 +16,8 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     private function loadSender(ContainerBuilder $container, array $config){
         $container->getDefinition('phone_verification.sender')
             ->addArgument(new Reference('notifier.channel.sms')) //TODO: check existence
-            ->addArgument(new Reference('phone_verification.sender.notification')) //check existence
-            ->addArgument(new Reference('phone_verification.sender.sms_recipient'))
+            ->addArgument(new Reference('phone_verification.sender.notification'))
+            ->addArgument(new Reference('phone_verification.sender.sms_recipient.empty'))
             ->addArgument($config['transport']);
     }
 

@@ -18,8 +18,12 @@ use Symfony\Component\Notifier\Notification\Notification;
 return static function (ContainerConfigurator $container) {
     $services = $container->services();
 
-    //TODO: no autowire or autoconfigure in a bundle
-    $services->set(PhoneVerificationController::class)->autowire()->autoconfigure();
+    // @see https://symfony.com/doc/current/bundles/best_practices.html#services
+    // Services should not use autowiring or autoconfiguration. Instead, all services should be defined explicitly.
+    $services->set(PhoneVerificationController::class)
+       ->args([service('translator')])
+       ->call('setContainer', [service('service_container')])
+       ->tag('controller.service_arguments');
 
     $services->set(PhoneVerificationInitiateCommand::class)
              ->args([service('phone_verification.manager.initiator'),
@@ -54,7 +58,7 @@ return static function (ContainerConfigurator $container) {
         ->set('phone_verification.sender.notification', Notification::class);
 
     $services
-        ->set('phone_verification.sender.sms_recipient', SmsRecipient::class);
+        ->set('phone_verification.sender.sms_recipient.empty', SmsRecipient::class);
 
     $services
         ->set('phone_verification.storage')
