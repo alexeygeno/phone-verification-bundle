@@ -18,7 +18,7 @@ class RoutesTest extends ApplicationTestCase
 
         $to = '+15417543010';
 
-        $this->client->request('GET', "/phone-verification/initiate/$to");
+        $this->client->request('POST', "/phone-verification/initiate/$to");
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(200);
@@ -39,7 +39,7 @@ class RoutesTest extends ApplicationTestCase
         $otp = 0;
         $to = '+15417543010';
 
-        $this->client->request('GET', "/phone-verification/complete/$to/$otp");
+        $this->client->request('POST', "/phone-verification/complete/$to/$otp");
         $this->assertResponseStatusCodeSame(406);
         $this->assertResponseJson(['ok' => false, 'message' => $this->trans('expired', ['%minutes%' => $expirationPeriodSecs/60])]);
     }
@@ -54,13 +54,13 @@ class RoutesTest extends ApplicationTestCase
         $otp = 0;
         $to = '+15417543010';
 
-        $this->client->request('GET', "/phone-verification/initiate/$to");
+        $this->client->request('POST', "/phone-verification/initiate/$to");
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(200);
         $this->assertResponseJson(['ok' => true, 'message' => $this->trans('initiation_success')]);
 
 
-        $this->client->request('GET', "/phone-verification/complete/$to/$otp");
+        $this->client->request('POST', "/phone-verification/complete/$to/$otp");
         $this->assertResponseStatusCodeSame(406);
         $this->assertResponseJson(['ok' => false, 'message' => $this->trans('incorrect')]);
 
@@ -84,12 +84,12 @@ class RoutesTest extends ApplicationTestCase
         $rand = $this->getFunctionMock('AlexGeno\PhoneVerification', 'rand');
         $rand->expects($this->once())->willReturn($otp);
 
-        $this->client->request('GET', "/phone-verification/initiate/$to");
+        $this->client->request('POST', "/phone-verification/initiate/$to");
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(200);
         $this->assertResponseJson(['ok' => true, 'message' => $this->trans('initiation_success')]);
 
-        $this->client->request('GET', "/phone-verification/complete/$to/$otp");
+        $this->client->request('POST', "/phone-verification/complete/$to/$otp");
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(200);
         $this->assertResponseJson(['ok' => true, 'message' => $this->trans('completion_success')]);
@@ -108,7 +108,7 @@ class RoutesTest extends ApplicationTestCase
         $periodSecs = static::getContainer()->getParameter('alex_geno_phone_verification.manager.rate_limits.initiate.period_secs');
 
         foreach (range(0, $count) as $iteration){
-            $this->client->request('GET', "/phone-verification/initiate/$to");
+            $this->client->request('POST', "/phone-verification/initiate/$to");
             if($iteration<$count) {
                 $this->assertResponseIsSuccessful();
                 $this->assertResponseStatusCodeSame(200);
@@ -133,13 +133,13 @@ class RoutesTest extends ApplicationTestCase
         $count = static::getContainer()->getParameter('alex_geno_phone_verification.manager.rate_limits.complete.count');
         $periodSecs = static::getContainer()->getParameter('alex_geno_phone_verification.manager.rate_limits.complete.period_secs');
 
-        $this->client->request('GET', "/phone-verification/initiate/$to");
+        $this->client->request('POST', "/phone-verification/initiate/$to");
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(200);
         $this->assertResponseJson(['ok' => true, 'message' => $this->trans('initiation_success')]);
 
         foreach (range(0, $count) as $iteration) {
-            $this->client->request('GET', "/phone-verification/complete/$to/$wrongOtp");
+            $this->client->request('POST', "/phone-verification/complete/$to/$wrongOtp");
             $this->assertResponseStatusCodeSame(406);
             if($iteration<$count) {
                 $this->assertResponseJson(['ok' => false, 'message' => $this->trans('incorrect')]);
