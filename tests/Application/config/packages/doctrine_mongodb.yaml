@@ -8,4 +8,4 @@ doctrine_mongodb:
     default_database: phone_verification
     document_managers:
         default:
-            auto_mapping: true
+            auto_mapping: false

@@ -11,6 +11,9 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Reference;
 use AlexGeno\PhoneVerificationBundle\Exception;
 
+use RecursiveIteratorIterator;
+use RecursiveArrayIterator;
+
 class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPassInterface
 {
     private array $config;
@@ -84,9 +87,27 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
                     ->addArgument($config['settings']);
     }
 
+    private function processParameters(ContainerBuilder $container, array $config, $storageDriver){
+        // Change the structure of the array so it's ready for the conversion
+        $config['storage'] = ['driver' => $storageDriver] + $config['storage'][$storageDriver];
+        unset($config['storage'][$storageDriver]);
+        unset($config['enabled']);
+
+        // Convert multidimensional array to 2D dot notation keys and set respective parameters
+        $iterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($config));
+        $prefix = $this->getAlias();
+        foreach ($iterator as $leafValue) {
+            $keys = [$prefix];
+            foreach (range(0, $iterator->getDepth()) as $depth) {
+                $keys[] = $iterator->getSubIterator($depth)->key();
+            }
+            $key = join('.', $keys);
+            $container->setParameter($key, $leafValue);
+        }
+    }
+
     public function load(array $configs, ContainerBuilder $container): void
     {
-
        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
        $loader->load('services.php');
 
@@ -100,17 +121,21 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
 
         $config = $container->resolveEnvPlaceholders($this->config($configs, $container), true);
 
-        $this->processManagerFactory($container, $config['manager']);
-
+        // Existence has been checked in \DependencyInjection\Configuration
         $storageDriver = $config['storage']['driver'];
+
+        if(!isset($config['storage'][$storageDriver])){
+            throw new Exception("The configuration {$this->getAlias()}.storage.$storageDriver is not defined");
+        }
         $processStorageMethodName = 'process'.ucfirst($storageDriver).'Storage';
         if(method_exists($this, $processStorageMethodName)){
-            if(!isset($config['storage'][$storageDriver])){
-                throw new Exception("The configuration {$this->getAlias()}.storage.$storageDriver is not defined");
-            }
             $this->$processStorageMethodName($container, $config['storage'][$storageDriver]);
         }else{
             throw new Exception("Not supported storage driver '{$storageDriver}'. Check the configuration.");
         }
+
+        $this->processManagerFactory($container, $config['manager']);
+        $this->processParameters($container, $config, $storageDriver);
+
     }
 }
