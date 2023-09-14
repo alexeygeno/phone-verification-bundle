@@ -44,7 +44,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
 
     private function processRedisStorage(ContainerBuilder $container, array $config){
 
-        if(!$container->has('snc_redis.client.default_options')){
+        if(!$container->hasExtension('snc_redis')){
             throw new Exception("snc/redis-bundle must be installed to use 'redis' as a storage");
         }
         $connectionServiceId = 'snc_redis.'.$config['connection'];
@@ -61,7 +61,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
 
     private function processMongodbStorage(ContainerBuilder $container, array $config){
 
-        if(!$container->has('doctrine_mongodb')){
+        if(!$container->hasExtension('doctrine_mongodb')){
            throw new Exception("doctrine/mongodb-odm-bundle must be installed to use 'mongodb' as a storage");
         }
 
