@@ -44,7 +44,10 @@
     },
 
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
