@@ -1,6 +1,6 @@
 {
     "name": "alexgeno/phone-verification-bundle",
-    "description":"A Symfony bundle to verify a phone via notification channels. Any notification channel can be used as a sender. Redis(predis) or MongoDb can be used a storage.",
+    "description":"A Symfony bundle to verify a phone via notification channels. Any notification channel can be used as a sender. Redis or MongoDb can be used a storage.",
     "type": "symfony-bundle",
     "keywords":["phone", "verification", "verify", "sms", "2fa", "2factor","authentication", "signin",
         "signup", "redis", "mongo", "mongodb", "verify-by-phone", "otp", "notification", "notification-channel",
@@ -40,7 +40,9 @@
         "symfony/framework-bundle": "^6.0",
         "symfony/translation": "^6.0",
         "symfony/console": "^6.0",
-        "symfony/notifier": "^6.0"
+        "symfony/notifier": "^6.0",
+        "predis/predis": "^2.2",
+        "snc/redis-bundle": "^4.6"
     },
 
     "config": {
@@ -55,8 +57,6 @@
         "doctrine/mongodb-odm-bundle": "^4.6",
         "m6web/redis-mock": "^5.6",
         "php-mock/php-mock-phpunit": "^2.7",
-        "predis/predis": "^2.2",
-        "snc/redis-bundle": "^4.6",
         "symfony/message-bird-notifier": "^6.0",
         "symfony/twilio-notifier": "^6.0",
         "symfony/vonage-notifier": "^6.0",
