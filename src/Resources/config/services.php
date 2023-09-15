@@ -26,41 +26,41 @@ return static function (ContainerConfigurator $container) {
        ->tag('controller.service_arguments');
 
     $services->set(PhoneVerificationInitiateCommand::class)
-             ->args([service('phone_verification.manager.initiator'),
+             ->args([service('alex_geno_phone_verification.manager.initiator'),
                     service('translator')])
              ->tag('console.command');
 
     $services->set(PhoneVerificationCompleteCommand::class)
-             ->args([service('phone_verification.manager.completer'),
+             ->args([service('alex_geno_phone_verification.manager.completer'),
                     service('translator')])
               ->tag('console.command');
 
     $services
-        ->set('phone_verification.manager.factory', ManagerFactory::class);
+        ->set('alex_geno_phone_verification.manager.factory', ManagerFactory::class);
 
     $services
-        ->set('phone_verification.manager.initiator', Manager::class)
-        ->factory([service('phone_verification.manager.factory'), 'initiator'])
-        ->args([service('phone_verification.sender')])
-        ->alias(Initiator::class, 'phone_verification.manager.initiator')
+        ->set('alex_geno_phone_verification.manager.initiator', Manager::class)
+        ->factory([service('alex_geno_phone_verification.manager.factory'), 'initiator'])
+        ->args([service('alex_geno_phone_verification.sender')])
+        ->alias(Initiator::class, 'alex_geno_phone_verification.manager.initiator')
     ;
 
     $services
-        ->set('phone_verification.manager.completer', Manager::class)
-        ->factory([service('phone_verification.manager.factory'), 'completer'])
-        ->alias(Completer::class, 'phone_verification.manager.completer');
+        ->set('alex_geno_phone_verification.manager.completer', Manager::class)
+        ->factory([service('alex_geno_phone_verification.manager.factory'), 'completer'])
+        ->alias(Completer::class, 'alex_geno_phone_verification.manager.completer');
 
     $services
-        ->set('phone_verification.sender', Sender::class)
-        ->alias(ISender::class, 'phone_verification.sender');
+        ->set('alex_geno_phone_verification.sender', Sender::class)
+        ->alias(ISender::class, 'alex_geno_phone_verification.sender');
 
     $services
-        ->set('phone_verification.sender.notification', Notification::class);
+        ->set('alex_geno_phone_verification.sender.notification', Notification::class);
 
     $services
-        ->set('phone_verification.sender.sms_recipient.empty', SmsRecipient::class);
+        ->set('alex_geno_phone_verification.sender.sms_recipient.empty', SmsRecipient::class);
 
     $services
-        ->set('phone_verification.storage')
-        ->alias(IStorage::class, 'phone_verification.storage');
+        ->set('alex_geno_phone_verification.storage')
+        ->alias(IStorage::class, 'alex_geno_phone_verification.storage');
 };

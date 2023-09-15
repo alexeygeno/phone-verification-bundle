@@ -59,10 +59,8 @@ curl -X POST localhost/phone-verification/complete/+15417543010/1234
 The bundle will be automatically enabled and configured by a [Flex](https://symfony.com/doc/current/quick_tour/flex_recipes.html#flex-recipes-and-aliases) recipe.
 In case you don't use [Flex](https://symfony.com/doc/current/quick_tour/flex_recipes.html#flex-recipes-and-aliases), see [docs/CONFIGURATION.md](docs/CONFIGURATION.md) on how to manually do it
 
-## Different storages and sms services
-To switch between [available](#requirements) storages and SMS services, install a respective package and update the configuration
-
-For example, to use **Mongodb** as a storage and **Twilio** as an SMS service:
+## Different storages and SMS services
+To switch between [available](#requirements) storages and SMS services, install a respective package and update the configuration. For example, to use **Mongodb** as a storage and **Twilio** as an SMS service:
 ```shell
 composer require doctrine/mongodb-odm-bundle symfony/twilio-notifier
 ```
@@ -70,10 +68,7 @@ composer require doctrine/mongodb-odm-bundle symfony/twilio-notifier
 alex_geno_phone_verification:
     storage:
         driver: mongodb
-        redis:
-            connection: default
-        mongodb:
-            connection: default
+        # ...
     sender:
         transport: twilio
 # ...

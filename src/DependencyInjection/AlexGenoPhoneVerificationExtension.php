@@ -27,16 +27,16 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     }
 
     private function loadSender(ContainerBuilder $container, array $config){
-        $container->getDefinition('phone_verification.sender')
+        $container->getDefinition('alex_geno_phone_verification.sender')
             ->addArgument(new Reference('notifier.channel.sms')) //TODO: check existence
-            ->addArgument(new Reference('phone_verification.sender.notification'))
-            ->addArgument(new Reference('phone_verification.sender.sms_recipient.empty'))
+            ->addArgument(new Reference('alex_geno_phone_verification.sender.notification'))
+            ->addArgument(new Reference('alex_geno_phone_verification.sender.sms_recipient.empty'))
             ->addArgument($config['transport']);
     }
 
     private function processManagerFactory(ContainerBuilder $container, array $config){
-        $container->getDefinition('phone_verification.manager.factory')
-            ->addArgument(new Reference('phone_verification.storage'))
+        $container->getDefinition('alex_geno_phone_verification.manager.factory')
+            ->addArgument(new Reference('alex_geno_phone_verification.storage'))
             ->addArgument(new Reference('translator'))
             ->addArgument($this->getAlias())
             ->addArgument($config);
@@ -53,7 +53,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
             throw new Exception("No connection '{$config['connection']}' in the 'snc_redis' configuration.");
         }
 
-        $container->getDefinition('phone_verification.storage')
+        $container->getDefinition('alex_geno_phone_verification.storage')
                    ->setClass(\AlexGeno\PhoneVerification\Storage\Redis::class)
                    ->addArgument(new Reference($connectionServiceId))
                    ->addArgument($config['settings']);
@@ -81,7 +81,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
         }
 
         $config['settings']['db'] = $db;
-        $container->getDefinition('phone_verification.storage')
+        $container->getDefinition('alex_geno_phone_verification.storage')
                     ->setClass(\AlexGeno\PhoneVerification\Storage\MongoDb::class)
                     ->addArgument(new Reference($connectionServiceId))
                     ->addArgument($config['settings']);
