@@ -55,10 +55,14 @@ curl -X POST localhost/phone-verification/initiate/+15417543010
 curl -X POST localhost/phone-verification/complete/+15417543010/1234
 {"ok":true,"message":"The verification is done!"}
 ```
+## Configuration
+The bundle will be automatically enabled and configured by a [Flex](https://symfony.com/doc/current/quick_tour/flex_recipes.html#flex-recipes-and-aliases) recipe.
+In case you don't use [Flex](https://symfony.com/doc/current/quick_tour/flex_recipes.html#flex-recipes-and-aliases), see [docs/CONFIGURATION.md](docs/CONFIGURATION.md) on how to manually do it
+
 ## Different storages and sms services
 To switch between [available](#requirements) storages and SMS services, install a respective package and update the configuration
 
-For example, to use **Mongodb** as a storage and **Twilio** as a notification channel:
+For example, to use **Mongodb** as a storage and **Twilio** as an SMS service:
 ```shell
 composer require doctrine/mongodb-odm-bundle symfony/twilio-notifier
 ```
@@ -76,7 +80,3 @@ alex_geno_phone_verification:
 ```
 If the available options are not sufficient, you can add a custom storage (implementing **\AlexGeno\PhoneVerification\Storage\I**) or/and a sender (implementing **\AlexGeno\PhoneVerification\Sender\I**), and 
 [decorate](https://symfony.com/doc/current/service_container/service_decoration.html) the respective services (**alex_geno_phone_verification.sender**, **alex_geno_phone_verification.storage**) with them
-
-## Configuration
-The bundle will be automatically enabled and configured by a [Flex](https://symfony.com/doc/current/quick_tour/flex_recipes.html#flex-recipes-and-aliases) recipe.
-In case you don't use [Flex](https://symfony.com/doc/current/quick_tour/flex_recipes.html#flex-recipes-and-aliases), see [docs/CONFIGURATION.md](docs/CONFIGURATION.md) on how to manually do it
