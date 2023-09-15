@@ -1,4 +1,4 @@
-# Phone Verification via [Symfony Notification SMS Channel](https://symfony.com/doc/current/notifier.html#sms-channel)
+# Phone Verification via [Symfony Notifier SMS Channel](https://symfony.com/doc/current/notifier.html#sms-channel)
 
 Signing in or signing up on a modern website or mobile app typically follows these steps:
 - A user initiates verification by submitting a phone number
@@ -17,7 +17,7 @@ This library is built on top of [ alexeygeno/phone-verification-php ](https://gi
 
 ## Requirements
 - [Symfony 6.x](https://symfony.com/doc/6.0/index.html)
-- Any of SMS channel services: [vonage](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Vonage/README.md), [twilio](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Twilio/README.md), [messagebird](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/MessageBird/README.md)  and [many more ](https://github.com/symfony/symfony/tree/6.0/src/Symfony/Component/Notifier)
+- Any of sms services: [vonage](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Vonage/README.md), [twilio](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Twilio/README.md), [messagebird](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/MessageBird/README.md)  and [many more ](https://github.com/symfony/symfony/tree/6.0/src/Symfony/Component/Notifier)
 - Any of supported storages: [snc/redis-bundle](https://github.com/snc/SncRedisBundle), [doctrine/mongodb-odm-bundle](https://github.com/doctrine/DoctrineMongoDBBundle)
 ## Installation
 ```shell
@@ -48,9 +48,10 @@ bin/console phone-verification:complete --to=+15417543010 --otp=1234
 ```
 #### Routes
 ```shell
-curl localhost/phone-verification/initiate/+15417543010
+curl -X POST localhost/phone-verification/initiate/+15417543010
 {"ok":true,"message":"Sms has been sent. Check your Phone!"}
 ```
 ```shell
-curl localhost/phone-verification/complete/+15417543010/1234
+curl -X POST localhost/phone-verification/complete/+15417543010/1234
 {"ok":true,"message":"The verification is done!"}
+```
