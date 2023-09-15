@@ -3,16 +3,16 @@
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use AlexGeno\PhoneVerification\Manager;
-use AlexGeno\PhoneVerificationBundle\Command\PhoneVerificationInitiateCommand;
-use AlexGeno\PhoneVerificationBundle\Command\PhoneVerificationCompleteCommand;
-use AlexGeno\PhoneVerificationBundle\Controller\PhoneVerificationController;
-use AlexGeno\PhoneVerificationBundle\Factory\ManagerFactory;
-use AlexGeno\PhoneVerificationBundle\Notifier\SmsRecipient;
-use AlexGeno\PhoneVerification\Manager\Initiator;
 use AlexGeno\PhoneVerification\Manager\Completer;
-use AlexGeno\PhoneVerificationBundle\Notifier\Sender;
+use AlexGeno\PhoneVerification\Manager\Initiator;
 use AlexGeno\PhoneVerification\Sender\I as ISender;
 use AlexGeno\PhoneVerification\Storage\I as IStorage;
+use AlexGeno\PhoneVerificationBundle\Command\PhoneVerificationCompleteCommand;
+use AlexGeno\PhoneVerificationBundle\Command\PhoneVerificationInitiateCommand;
+use AlexGeno\PhoneVerificationBundle\Controller\PhoneVerificationController;
+use AlexGeno\PhoneVerificationBundle\Factory\ManagerFactory;
+use AlexGeno\PhoneVerificationBundle\Notifier\Sender;
+use AlexGeno\PhoneVerificationBundle\Notifier\SmsRecipient;
 use Symfony\Component\Notifier\Notification\Notification;
 
 return static function (ContainerConfigurator $container) {

@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
-
-class PhoneVerificationCommandsTest extends KernelTestCase{
-
+class PhoneVerificationCommandsTest extends KernelTestCase
+{
     use PHPMock;
 
     protected Application $application;
 
-    protected static function getKernelClass():string{
+    protected static function getKernelClass(): string
+    {
         return \AlexGeno\PhoneVerificationBundle\Tests\Application\Kernel::class;
     }
 
@@ -31,7 +31,8 @@ class PhoneVerificationCommandsTest extends KernelTestCase{
      *
      * @return void
      */
-    public function test_process_ok(){
+    public function testProcessOk()
+    {
         $otp = 1234;
         $to = '+15417543010';
 
@@ -48,33 +49,32 @@ class PhoneVerificationCommandsTest extends KernelTestCase{
         $commandCompleteTester = new CommandTester($this->application->find('phone-verification:complete'));
         $commandCompleteTester->execute(['--to' => $to, '--otp' => $otp]);
         $commandCompleteTester->assertCommandIsSuccessful();
-
     }
 
-    public function test_initiate_fail(){
+    public function testInitiateFail()
+    {
         $to = '+15417543010';
 
         $count = static::getContainer()->getParameter('alex_geno_phone_verification.manager.rate_limits.initiate.count');
         $commandTester = new CommandTester($this->application->find('phone-verification:initiate'));
 
-        foreach (range(0, $count) as $iteration){
+        foreach (range(0, $count) as $iteration) {
             $commandTester->execute(['--to' => $to]);
-            if($iteration<$count) {
+            if ($iteration < $count) {
                 $commandTester->assertCommandIsSuccessful();
-            }else{ // limit exceeded
+            } else { // limit exceeded
                 $this->assertEquals(Command::FAILURE, $commandTester->getStatusCode());
             }
-
         }
     }
 
-    public function test_complete_fail(){
+    public function testCompleteFail()
+    {
         $to = '+15417543010';
         $wrongOtp = 0;
         $commandTester = new CommandTester($this->application->find('phone-verification:complete'));
 
         $commandTester->execute(['--to' => $to, '--otp' => $wrongOtp]);
         $this->assertEquals(Command::FAILURE, $commandTester->getStatusCode());
-
     }
 }

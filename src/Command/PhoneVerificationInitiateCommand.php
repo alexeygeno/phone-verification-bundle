@@ -2,16 +2,15 @@
 
 namespace AlexGeno\PhoneVerificationBundle\Command;
 
+use AlexGeno\PhoneVerification\Exception;
 use AlexGeno\PhoneVerification\Manager\Initiator;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-
-use AlexGeno\PhoneVerification\Exception;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
     name: 'phone-verification:initiate',
@@ -37,7 +36,7 @@ class PhoneVerificationInitiateCommand extends Command
         try {
             $this->manager->initiate($input->getOption('to'));
             $io->success($this->translator->trans('initiation_success', [], 'alex_geno_phone_verification'));
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $return = Command::FAILURE;
             $io->error($e->getMessage());
         }

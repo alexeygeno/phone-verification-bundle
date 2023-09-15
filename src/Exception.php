@@ -1,6 +1,7 @@
 <?php
+
 namespace AlexGeno\PhoneVerificationBundle;
 
-class Exception extends \Exception{
-
+class Exception extends \Exception
+{
 }

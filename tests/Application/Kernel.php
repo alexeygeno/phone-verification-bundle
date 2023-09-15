@@ -1,20 +1,14 @@
 <?php
 
-
 namespace AlexGeno\PhoneVerificationBundle\Tests\Application;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
-
 
 final class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     public function registerBundles(): iterable
     {
         return [
@@ -29,5 +23,4 @@ final class Kernel extends BaseKernel
     {
         return __DIR__;
     }
-
 }

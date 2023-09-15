@@ -1,4 +1,5 @@
 <?php
+
 namespace AlexGeno\PhoneVerificationBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
