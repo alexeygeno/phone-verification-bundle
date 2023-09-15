@@ -17,13 +17,13 @@ This library is built on top of [ alexeygeno/phone-verification-php ](https://gi
 
 ## Requirements
 - [Symfony 6.x](https://symfony.com/doc/6.0/index.html)
-- Any of sms services: [vonage](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Vonage/README.md), [twilio](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Twilio/README.md), [messagebird](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/MessageBird/README.md)  and [many more ](https://github.com/symfony/symfony/tree/6.0/src/Symfony/Component/Notifier)
+- Any of SMS services: [vonage](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Vonage/README.md), [twilio](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Twilio/README.md), [messagebird](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/MessageBird/README.md)  and [many more ](https://github.com/symfony/symfony/tree/6.0/src/Symfony/Component/Notifier)
 - Any of supported storages: [snc/redis-bundle](https://github.com/snc/SncRedisBundle), [doctrine/mongodb-odm-bundle](https://github.com/doctrine/DoctrineMongoDBBundle)
 ## Installation
 ```shell
 composer require alexgeno/phone-verification-bundle snc/redis-bundle predis/predis symfony/vonage-notifier
 ```
-**Note:** Redis as a storage and Vonage as an SMS channel service are defaults in the configuration 
+**Note:** Redis as a storage and Vonage as an SMS service are defaults in the configuration 
 
 ## Usage
 #### Dependency injection
@@ -55,3 +55,28 @@ curl -X POST localhost/phone-verification/initiate/+15417543010
 curl -X POST localhost/phone-verification/complete/+15417543010/1234
 {"ok":true,"message":"The verification is done!"}
 ```
+## Different storages and sms services
+To switch between [available](#requirements) storages and SMS services, install a respective package and update the configuration
+
+For example, to use **Mongodb** as a storage and **Twilio** as a notification channel:
+```shell
+composer require doctrine/mongodb-odm-bundle symfony/twilio-notifier
+```
+```yaml
+alex_geno_phone_verification:
+    storage:
+        driver: mongodb
+        redis:
+            connection: default
+        mongodb:
+            connection: default
+    sender:
+        transport: twilio
+# ...
+```
+If the available options are not sufficient, you can add a custom storage (implementing **\AlexGeno\PhoneVerification\Storage\I**) or/and a sender (implementing **\AlexGeno\PhoneVerification\Sender\I**), and 
+[decorate](https://symfony.com/doc/current/service_container/service_decoration.html) the respective services (**alex_geno_phone_verification.sender**, **alex_geno_phone_verification.storage**) with them
+
+## Configuration
+The bundle will be automatically enabled and configured by a [Flex](https://symfony.com/doc/current/quick_tour/flex_recipes.html#flex-recipes-and-aliases) recipe.
+In case you don't use [Flex](https://symfony.com/doc/current/quick_tour/flex_recipes.html#flex-recipes-and-aliases), see [docs/CONFIGURATION.md](docs/CONFIGURATION.md) on how to manually do it
