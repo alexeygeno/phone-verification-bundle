@@ -22,12 +22,18 @@ class ApplicationTestCase extends WebTestCase
         static::getContainer()->get('snc_redis.mock.default')->flushdb();
     }
 
-    protected function trans(string $id, array $parameters = [], string $domain = 'alex_geno_phone_verification', string $locale = null)
+    /**
+     * @param array<mixed> $parameters
+     */
+    protected function trans(string $id, array $parameters = [], string $domain = 'alex_geno_phone_verification', string $locale = null): string
     {
         return static::getContainer()->get(TranslatorInterface::class)->trans($id, $parameters, $domain, $locale);
     }
 
-    protected function assertResponseJson(array $json)
+    /**
+     * @param array<mixed> $json
+     */
+    protected function assertResponseJson(array $json): void
     {
         $content = $this->client->getResponse()->getContent();
         $this->assertJson($content);

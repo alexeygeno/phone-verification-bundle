@@ -12,9 +12,17 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPassInterface
 {
+    /**
+     * @var array<mixed> ['storage' => [...], 'sender' => [...], 'manager' => [...]]
+     */
     private array $config;
 
-    private function config(array $configs, ContainerBuilder $container)
+    /**
+     * @param array<mixed> $configs
+     *
+     * @return array<mixed> ['storage' => [...], 'sender' => [...], 'manager' => [...]]
+     */
+    private function config(array $configs, ContainerBuilder $container): array
     {
         if (!isset($this->config)) {
             $configuration = $this->getConfiguration($configs, $container);
@@ -24,16 +32,22 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
         return $this->config;
     }
 
-    private function loadSender(ContainerBuilder $container, array $config)
+    /**
+     * @param array<mixed> $config ['transport' => string]
+     */
+    private function loadSender(ContainerBuilder $container, array $config): void
     {
         $container->getDefinition('alex_geno_phone_verification.sender')
-            ->addArgument(new Reference('notifier.channel.sms')) // TODO: check existence
+            ->addArgument(new Reference('notifier.channel.sms'))
             ->addArgument(new Reference('alex_geno_phone_verification.sender.notification'))
             ->addArgument(new Reference('alex_geno_phone_verification.sender.sms_recipient.empty'))
             ->addArgument($config['transport']);
     }
 
-    private function processManagerFactory(ContainerBuilder $container, array $config)
+    /**
+     * @param array<mixed> $config ['otp' => [...], 'rate_limits' => [...]]
+     */
+    private function processManagerFactory(ContainerBuilder $container, array $config): void
     {
         $container->getDefinition('alex_geno_phone_verification.manager.factory')
             ->addArgument(new Reference('alex_geno_phone_verification.storage'))
@@ -42,7 +56,10 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
             ->addArgument($config);
     }
 
-    private function processRedisStorage(ContainerBuilder $container, array $config)
+    /**
+     * @param array<mixed> $config ['connection' => string, 'settings' => ['prefix' => string, 'session_key' => string, 'session_counter_key' => string]]
+     */
+    private function processRedisStorage(ContainerBuilder $container, array $config): void
     {
         if (!$container->hasExtension('snc_redis')) {
             throw new Exception("snc/redis-bundle must be installed to use 'redis' as a storage");
@@ -59,7 +76,10 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
                    ->addArgument($config['settings']);
     }
 
-    private function processMongodbStorage(ContainerBuilder $container, array $config)
+    /**
+     * @param array<mixed> $config ['connection' => string, 'settings' => ['collection_session' => string, 'collection_session_counter' => string]]
+     */
+    private function processMongodbStorage(ContainerBuilder $container, array $config): void
     {
         if (!$container->hasExtension('doctrine_mongodb')) {
             throw new Exception("doctrine/mongodb-odm-bundle must be installed to use 'mongodb' as a storage");
@@ -87,7 +107,10 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
                     ->addArgument($config['settings']);
     }
 
-    private function processParameters(ContainerBuilder $container, array $config, $storageDriver)
+    /**
+     * @param array<mixed> $config ['storage' => [...], 'sender' => [...], 'manager' => [...]]
+     */
+    private function processParameters(ContainerBuilder $container, array $config, string $storageDriver): void
     {
         // Change the structure of the array so it's ready for the conversion
         $config['storage'] = ['driver' => $storageDriver] + $config['storage'][$storageDriver];
@@ -120,7 +143,6 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     public function process(ContainerBuilder $container)
     {
         $configs = $container->getExtensionConfig($this->getAlias());
-
         $config = $container->resolveEnvPlaceholders($this->config($configs, $container), true);
 
         // Existence has been checked in \DependencyInjection\Configuration

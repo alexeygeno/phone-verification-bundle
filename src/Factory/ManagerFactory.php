@@ -14,10 +14,16 @@ class ManagerFactory
         private IStorage $storage,
         private TranslatorInterface $translator,
         private string $translatorDomain,
+        /**
+         * @var array<mixed> ['otp' => [...], 'rate_limits' => [...]]
+         */
         private array $rawConfig,
     ) {
     }
 
+    /**
+     * @return array<mixed> ['otp' => [...], 'rate_limits' => [...]]
+     */
     private function config(): array
     {
         $config = $this->rawConfig;

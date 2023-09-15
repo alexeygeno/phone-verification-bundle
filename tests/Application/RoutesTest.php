@@ -25,10 +25,8 @@ class RoutesTest extends ApplicationTestCase
 
     /**
      * Test verification process using the routes when OTP is expired.
-     *
-     * @return void
      */
-    public function testCompletionOtpExpired()
+    public function testCompletionOtpExpired(): void
     {
         // No initiation has the same behavior as the initiation expiration - the key just doesn't exist in a storage
         $expirationPeriodSecs = static::getContainer()->getParameter('alex_geno_phone_verification.manager.rate_limits.complete.period_secs');
@@ -43,10 +41,8 @@ class RoutesTest extends ApplicationTestCase
 
     /**
      * Test verification process using the routes when OTP is incorrect.
-     *
-     * @return void
      */
-    public function testCompletionOtpIncorrect()
+    public function testCompletionOtpIncorrect(): void
     {
         $otp = 0;
         $to = '+15417543010';
@@ -67,10 +63,8 @@ class RoutesTest extends ApplicationTestCase
      * @runInSeparateProcess
      *
      * @see https://github.com/php-mock/php-mock-phpunit#restrictions
-     *
-     * @return void
      */
-    public function testProcessOk()
+    public function testProcessOk(): void
     {
         $otp = 1234;
         $to = '+15417543010';
@@ -91,10 +85,8 @@ class RoutesTest extends ApplicationTestCase
 
     /**
      * Test the initiation rate limit.
-     *
-     * @return void
      */
-    public function testInitiationRateLimitExceeded()
+    public function testInitiationRateLimitExceeded(): void
     {
         $to = '+15417543010';
 
@@ -116,10 +108,8 @@ class RoutesTest extends ApplicationTestCase
 
     /**
      * Test the completion rate limit.
-     *
-     * @return void
      */
-    public function testProcessRateLimitExceeded()
+    public function testProcessRateLimitExceeded(): void
     {
         $wrongOtp = 0;
         $to = '+15417543010';

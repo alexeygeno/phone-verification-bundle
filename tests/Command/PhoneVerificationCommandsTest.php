@@ -28,10 +28,8 @@ class PhoneVerificationCommandsTest extends KernelTestCase
      * @runInSeparateProcess
      *
      * @see https://github.com/php-mock/php-mock-phpunit#restrictions
-     *
-     * @return void
      */
-    public function testProcessOk()
+    public function testProcessOk(): void
     {
         $otp = 1234;
         $to = '+15417543010';
@@ -51,7 +49,7 @@ class PhoneVerificationCommandsTest extends KernelTestCase
         $commandCompleteTester->assertCommandIsSuccessful();
     }
 
-    public function testInitiateFail()
+    public function testInitiateFail(): void
     {
         $to = '+15417543010';
 
@@ -68,7 +66,7 @@ class PhoneVerificationCommandsTest extends KernelTestCase
         }
     }
 
-    public function testCompleteFail()
+    public function testCompleteFail(): void
     {
         $to = '+15417543010';
         $wrongOtp = 0;

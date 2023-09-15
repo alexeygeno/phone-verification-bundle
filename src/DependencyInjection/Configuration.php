@@ -11,7 +11,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('alex_geno_phone_verification');
 
-        $treeBuilder->getRootNode()
+        $treeBuilder->getRootNode() /* @phpstan-ignore-line */
             ->children()
                 ->booleanNode('enabled')->defaultTrue()->end()
                 ->arrayNode('storage')->isRequired()

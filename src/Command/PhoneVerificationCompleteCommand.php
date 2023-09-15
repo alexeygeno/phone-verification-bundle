@@ -3,7 +3,7 @@
 namespace AlexGeno\PhoneVerificationBundle\Command;
 
 use AlexGeno\PhoneVerification\Exception;
-use AlexGeno\PhoneVerification\Manager\Initiator;
+use AlexGeno\PhoneVerification\Manager\Completer;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,7 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 )]
 class PhoneVerificationCompleteCommand extends Command
 {
-    public function __construct(private Initiator $manager, private TranslatorInterface $translator)
+    public function __construct(private Completer $manager, private TranslatorInterface $translator)
     {
         parent::__construct();
     }
