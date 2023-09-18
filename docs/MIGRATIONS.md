@@ -1,5 +1,6 @@
 ## Migrations
-Unfortunately [mongodb-migrations-bundle](https://github.com/doesntmattr/mongodb-migrations-bundle) doesn't support [Symfony 6](https://symfony.com/doc/6.0/index.html) by the moment this bundle had been created.
+Unfortunately, [mongodb-migrations-bundle](https://github.com/doesntmattr/mongodb-migrations-bundle) does not currently support [Symfony 6](https://symfony.com/doc/6.0/index.html). This limitation existed at the time this bundle was created  
+
 However, there are `UP` and `DOWN` for making it in a hand-made manner via [mongosh](https://www.mongodb.com/docs/mongodb-shell/)
 #### UP
 ```javascript
@@ -12,9 +13,11 @@ db.phone_verification.session_counter.createIndex({"created":1}, {expireAfterSec
 ```javascript
 db.phone_verification.session.dropIndex("id_unique_index");
 db.phone_verification.session.dropIndex("updated_expiration_index");
+db.phone_verification.session_counter.dropIndex("id_unique_index");
+db.phone_verification.session_counter.dropIndex("created_expiration_index");
 ```
 **Note:** Because MongoDB creates a collection implicitly when the collection is first referenced in a command, it's enough to take care only about indexes  
-**Note:** Collection names `session` and `session_counter` are what the configuration has by default at the `storage.mongodb.settings`  
+**Note:** Collection names `session` and `session_counter` are what the configuration has by default at the `storage.mongodb.settings` section 
 ```yaml
 # config/packages/alex_geno_phone_verification.yaml
 alex_geno_phone_verification:
@@ -29,6 +32,7 @@ alex_geno_phone_verification:
 ```
 **Note:** Values `300` and `86400` in index options are what the configuration has by default in the following `.env` vars
 ```dotenv
+# .env
 PHONE_VERIFICATION_RATE_LIMIT_COMPLETE_PERIOD_SECS=300
 PHONE_VERIFICATION_RATE_LIMIT_INITIATE_PERIOD_SECS=86400
 ```

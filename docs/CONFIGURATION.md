@@ -14,8 +14,15 @@ alex_geno_phone_verification:
         driver: redis # redis || mongodb
         redis:
             connection: default
+            settings: # the key settings - normally you don't need to change them
+                prefix: pv:1
+                session_key: session
+                session_counter_key: session_counter
         mongodb:
             connection: default
+            settings: # the collection settings - normally you don't need to change them
+                collection_session: session
+                collection_session_counter: session_counter
     sender:
         transport: vonage # vonage || twilio || messagebird and many more https://symfony.com/doc/current/notifier.html#sms-channel
     manager:

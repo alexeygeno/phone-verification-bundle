@@ -75,3 +75,5 @@ alex_geno_phone_verification:
 ```
 If the available options are not sufficient, you can add a custom storage (implementing **\AlexGeno\PhoneVerification\Storage\I**) or/and a sender (implementing **\AlexGeno\PhoneVerification\Sender\I**), and 
 [decorate](https://symfony.com/doc/current/service_container/service_decoration.html) the respective services (**alex_geno_phone_verification.sender**, **alex_geno_phone_verification.storage**) with them
+
+**Note:** if you use **Mongodb** as a storage take a look at [docs/MIGRATIONS.md](docs/MIGRATIONS.md)
