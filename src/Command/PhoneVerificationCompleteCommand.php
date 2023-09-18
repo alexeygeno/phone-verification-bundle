@@ -4,6 +4,7 @@ namespace AlexGeno\PhoneVerificationBundle\Command;
 
 use AlexGeno\PhoneVerification\Exception;
 use AlexGeno\PhoneVerification\Manager\Completer;
+use AlexGeno\PhoneVerificationBundle\TranslatorTrait;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,9 +19,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 )]
 class PhoneVerificationCompleteCommand extends Command
 {
-    public function __construct(private Completer $manager, private TranslatorInterface $translator)
+    use TranslatorTrait;
+
+    public function __construct(private Completer $manager, TranslatorInterface $translator)
     {
         parent::__construct();
+        $this->translator = $translator;
     }
 
     protected function configure(): void
@@ -36,7 +40,7 @@ class PhoneVerificationCompleteCommand extends Command
         $return = Command::SUCCESS;
         try {
             $this->manager->complete($input->getOption('to'), $input->getOption('otp'));
-            $io->success($this->translator->trans('completion_success', [], 'alex_geno_phone_verification'));
+            $io->success($this->trans('completion_success'));
         } catch (Exception $e) {
             $return = Command::FAILURE;
             $io->error($e->getMessage());

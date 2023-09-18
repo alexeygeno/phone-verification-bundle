@@ -1,33 +1,34 @@
 <?php
 
-namespace AlexGeno\PhoneVerificationBundle\Tests\Application;
+namespace AlexGeno\PhoneVerificationBundle\Tests\Controller;
 
+use AlexGeno\PhoneVerificationBundle\TranslatorTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ApplicationTestCase extends WebTestCase
+abstract class ControllerTestCase extends WebTestCase
 {
+    use TranslatorTrait;
+
     protected KernelBrowser $client;
 
     protected static function getKernelClass(): string
     {
-        return \AlexGeno\PhoneVerificationBundle\Tests\Application\Kernel::class;
+        return \AlexGeno\PhoneVerificationBundle\Tests\TestApplication\Kernel::class;
     }
 
     public function setUp(): void
     {
         parent::setUp();
         $this->client = static::createClient();
-        static::getContainer()->get('snc_redis.mock.default')->flushdb();
+        $this->translator = static::getContainer()->get(TranslatorInterface::class);
     }
 
-    /**
-     * @param array<mixed> $parameters
-     */
-    protected function trans(string $id, array $parameters = [], string $domain = 'alex_geno_phone_verification', string $locale = null): string
+    public function tearDown(): void
     {
-        return static::getContainer()->get(TranslatorInterface::class)->trans($id, $parameters, $domain, $locale);
+        static::getContainer()->get(\Predis\Client::class)->flushdb();
+        parent::tearDown();
     }
 
     /**

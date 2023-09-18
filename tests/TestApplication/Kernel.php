@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexGeno\PhoneVerificationBundle\Tests\Application;
+namespace AlexGeno\PhoneVerificationBundle\Tests\TestApplication;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;

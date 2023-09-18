@@ -1,10 +1,10 @@
 <?php
 
-namespace AlexGeno\PhoneVerificationBundle\Tests\Application;
+namespace AlexGeno\PhoneVerificationBundle\Tests\Controller;
 
 use phpmock\phpunit\PHPMock;
 
-class RoutesTest extends ApplicationTestCase
+class PhoneVerificationControllerTest extends ControllerTestCase
 {
     use PHPMock;
 

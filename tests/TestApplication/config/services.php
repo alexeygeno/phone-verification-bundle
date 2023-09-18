@@ -13,5 +13,6 @@ return static function (ContainerConfigurator $container) {
         ->set('snc_redis.mock.default', \M6Web\Component\RedisMock\RedisMock::class)
         ->decorate('snc_redis.default')
         ->factory([service('snc_redis.mock.factory'), 'getAdapter'])
-        ->args([\Predis\Client::class]);
+        ->args([\Predis\Client::class])
+        ->alias(\Predis\Client::class, 'snc_redis.mock.default');
 };

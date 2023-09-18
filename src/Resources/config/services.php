@@ -25,12 +25,12 @@ return static function (ContainerConfigurator $container) {
        ->call('setContainer', [service('service_container')])
        ->tag('controller.service_arguments');
 
-    $services->set(PhoneVerificationInitiateCommand::class)
+    $services->set('alex_geno_phone_verification.command.initiate', PhoneVerificationInitiateCommand::class)
              ->args([service('alex_geno_phone_verification.manager.initiator'),
                     service('translator')])
              ->tag('console.command');
 
-    $services->set(PhoneVerificationCompleteCommand::class)
+    $services->set('alex_geno_phone_verification.command.complete', PhoneVerificationCompleteCommand::class)
              ->args([service('alex_geno_phone_verification.manager.completer'),
                     service('translator')])
               ->tag('console.command');

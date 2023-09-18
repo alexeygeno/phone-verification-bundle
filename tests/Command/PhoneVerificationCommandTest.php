@@ -1,28 +1,14 @@
 <?php
 
+namespace AlexGeno\PhoneVerificationBundle\Tests\Command;
+
 use phpmock\phpunit\PHPMock;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class PhoneVerificationCommandsTest extends KernelTestCase
+class PhoneVerificationCommandsTest extends CommandTestCase
 {
     use PHPMock;
-
-    protected Application $application;
-
-    protected static function getKernelClass(): string
-    {
-        return \AlexGeno\PhoneVerificationBundle\Tests\Application\Kernel::class;
-    }
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->application = new Application(self::bootKernel());
-        static::getContainer()->get('snc_redis.mock.default')->flushdb();
-    }
 
     /**
      * @runInSeparateProcess

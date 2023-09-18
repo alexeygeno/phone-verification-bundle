@@ -15,14 +15,14 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     /**
      * @var array<mixed> ['storage' => [...], 'sender' => [...], 'manager' => [...]]
      */
-    private array $config;
+    protected array $config;
 
     /**
      * @param array<mixed> $configs
      *
      * @return array<mixed> ['storage' => [...], 'sender' => [...], 'manager' => [...]]
      */
-    private function config(array $configs, ContainerBuilder $container): array
+    protected function config(array $configs, ContainerBuilder $container): array
     {
         if (!isset($this->config)) {
             $configuration = $this->getConfiguration($configs, $container);
@@ -35,7 +35,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     /**
      * @param array<mixed> $config ['transport' => string]
      */
-    private function loadSender(ContainerBuilder $container, array $config): void
+    protected function loadSender(ContainerBuilder $container, array $config): void
     {
         $container->getDefinition('alex_geno_phone_verification.sender')
             ->addArgument(new Reference('notifier.channel.sms'))
@@ -47,12 +47,11 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     /**
      * @param array<mixed> $config ['otp' => [...], 'rate_limits' => [...]]
      */
-    private function processManagerFactory(ContainerBuilder $container, array $config): void
+    protected function processManagerFactory(ContainerBuilder $container, array $config): void
     {
         $container->getDefinition('alex_geno_phone_verification.manager.factory')
             ->addArgument(new Reference('alex_geno_phone_verification.storage'))
             ->addArgument(new Reference('translator'))
-            ->addArgument($this->getAlias())
             ->addArgument($config);
     }
 
@@ -79,7 +78,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     /**
      * @param array<mixed> $config ['connection' => string, 'settings' => ['collection_session' => string, 'collection_session_counter' => string]]
      */
-    private function processMongodbStorage(ContainerBuilder $container, array $config): void
+    protected function processMongodbStorage(ContainerBuilder $container, array $config): void
     {
         if (!$container->hasExtension('doctrine_mongodb')) {
             throw new Exception("doctrine/mongodb-odm-bundle must be installed to use 'mongodb' as a storage");
@@ -110,7 +109,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     /**
      * @param array<mixed> $config ['storage' => [...], 'sender' => [...], 'manager' => [...]]
      */
-    private function processParameters(ContainerBuilder $container, array $config, string $storageDriver): void
+    protected function processParameters(ContainerBuilder $container, array $config, string $storageDriver): void
     {
         // Change the structure of the array so it's ready for the conversion
         $config['storage'] = ['driver' => $storageDriver] + $config['storage'][$storageDriver];
