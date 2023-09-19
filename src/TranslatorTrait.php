@@ -5,14 +5,14 @@ namespace AlexGeno\PhoneVerificationBundle;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Help to avoid passing $domain to the 'trans' method every time you need a translation inside the bundle
+ * Help to avoid passing $domain to the 'trans' method every time you need a translation inside the bundle.
  */
 trait TranslatorTrait
 {
     protected TranslatorInterface $translator;
 
     /**
-     * Wrap TranslatorInterface::trans with 'alex_geno_phone_verification' as default domain
+     * Wrap TranslatorInterface::trans with 'alex_geno_phone_verification' as default domain.
      *
      * @param array<mixed> $parameters
      */

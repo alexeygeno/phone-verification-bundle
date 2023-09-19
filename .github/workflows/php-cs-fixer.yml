@@ -1,4 +1,4 @@
-name: PHPStan
+name: PHPCsFixer
 
 on:
   push:
@@ -45,4 +45,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Execute phpstan
-        run: vendor/bin/phpstan
+        run: vendor/bin/php-cs-fixer fix --dry-run
