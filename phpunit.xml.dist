@@ -34,6 +34,7 @@
         <server name="APP_ENV" value="test" />
         <server name="APP_DEBUG" value="true" />
         <server name="TWILIO_DSN" value="null://null" />
+        <server name="VONAGE_DSN" value="null://null" />
         <server name="PHONE_VERIFICATION_OTP_LENGTH" value="6" />
         <server name="PHONE_VERIFICATION_RATE_LIMIT_INITIATE_PERIOD_SECS" value="86400" />
         <server name="PHONE_VERIFICATION_RATE_LIMIT_INITIATE_COUNT" value="5" />
