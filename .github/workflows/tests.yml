@@ -28,7 +28,7 @@ jobs:
           - symfony-require: "6.3.*"
             php-version: "8.1"
 
-    name: PHP ${{ matrix.php-version }} - Symfony ${{ symfony-require }}
+    name: PHP ${{ matrix.php-version }} - Symfony ${{ matrix.symfony-require }}
 
     steps:
       - name: Checkout code
