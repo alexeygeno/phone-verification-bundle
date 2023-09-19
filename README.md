@@ -1,8 +1,8 @@
 # Phone Verification via [Symfony Notifier SMS Channel](https://symfony.com/doc/current/notifier.html#sms-channel)
 
 [![Build Status](https://github.com/alexeygeno/phone-verification-bundle/workflows/Tests/badge.svg)](https://github.com/alexeygeno/phone-verification-bundle/actions/workflows/tests.yml)
-[![Build Status](https://github.com/alexeygeno/phone-verification-bundle/workflows/PHPCsFixer/badge.svg)](https://github.com/alexeygeno/phone-verification-php/actions/workflows/php-cs-fixer.yml)
-[![Build Status](https://github.com/alexeygeno/phone-verification-bundle/workflows/PHPStan/badge.svg)](https://github.com/alexeygeno/phone-verification-php/actions/workflows/php-stan.yml)
+[![Build Status](https://github.com/alexeygeno/phone-verification-bundle/workflows/PHPCsFixer/badge.svg)](https://github.com/alexeygeno/phone-verification-bundle/actions/workflows/php-cs-fixer.yml)
+[![Build Status](https://github.com/alexeygeno/phone-verification-bundle/workflows/PHPStan/badge.svg)](https://github.com/alexeygeno/phone-verification-bundle/actions/workflows/php-stan.yml)
 [![Build Status](https://github.com/symfony/recipes-contrib/actions/workflows/flex-update.yml/badge.svg)](https://github.com/symfony/recipes-contrib/actions/runs/6208501110)
 [![Coverage Status](https://coveralls.io/repos/github/alexeygeno/phone-verification-bundle/badge.svg)](https://coveralls.io/github/alexeygeno/phone-verification-bundle)
 
