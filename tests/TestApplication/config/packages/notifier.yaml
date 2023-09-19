@@ -3,3 +3,4 @@ framework:
         texter_transports:
             vonage: '%env(VONAGE_DSN)%'
             twilio: '%env(TWILIO_DSN)%'
+            messagebird: '%env(MESSAGEBIRD_DSN)%'
