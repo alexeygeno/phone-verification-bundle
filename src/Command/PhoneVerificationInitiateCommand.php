@@ -15,7 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
     name: 'phone-verification:initiate',
-    description: 'Sends a notification with an otp to a recipient',
+    description: 'Sends a notification with A one-time password to a recipient',
 )]
 class PhoneVerificationInitiateCommand extends Command
 {
