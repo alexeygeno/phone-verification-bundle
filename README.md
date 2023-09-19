@@ -1,5 +1,10 @@
 # Phone Verification via [Symfony Notifier SMS Channel](https://symfony.com/doc/current/notifier.html#sms-channel)
 
+[![Build Status](https://github.com/alexeygeno/phone-verification-bundle/workflows/Tests/badge.svg)](https://github.com/alexeygeno/phone-verification-bundle/actions/workflows/tests.yml)
+[![Build Status](https://github.com/alexeygeno/phone-verification-bundle/workflows/PHPCsFixer/badge.svg)](https://github.com/alexeygeno/phone-verification-php/actions/workflows/php-cs-fixer.yml)
+[![Build Status](https://github.com/alexeygeno/phone-verification-bundle/workflows/PHPStan/badge.svg)](https://github.com/alexeygeno/phone-verification-php/actions/workflows/php-stan.yml)
+[![Coverage Status](https://coveralls.io/repos/github/alexeygeno/phone-verification-bundle/badge.svg)](https://coveralls.io/github/alexeygeno/phone-verification-bundle)
+
 Signing in or signing up on a modern website or mobile app typically follows these steps:
 - A user initiates verification by submitting a phone number
 - The user receives an SMS or a call with a one-time password [(OTP)](https://en.wikipedia.org/wiki/One-time_password)

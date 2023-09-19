@@ -18,10 +18,9 @@ jobs:
       fail-fast: true
       matrix:
         php: ['8.0', '8.1', '8.2']
-        symfony: ['6.3']
         stability: [ prefer-stable ]
 
-    name: PHP ${{ matrix.php }} - Symfony ${{ matrix.symfony }}
+    name: PHP ${{ matrix.php }}
 
     steps:
       - name: Checkout code
