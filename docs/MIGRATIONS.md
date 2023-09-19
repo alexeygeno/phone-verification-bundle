@@ -17,7 +17,7 @@ db.phone_verification.session_counter.dropIndex("id_unique_index");
 db.phone_verification.session_counter.dropIndex("created_expiration_index");
 ```
 **Note:** Because MongoDB creates a collection implicitly when the collection is first referenced in a command, it's enough to take care only about indexes  
-**Note:** Collection names `session` and `session_counter` are what the configuration has by default at the `storage.mongodb.settings` section 
+**Note:** Collection names `session` and `session_counter` are what the configuration has by default in the `storage.mongodb.settings` section 
 ```yaml
 # config/packages/alex_geno_phone_verification.yaml
 alex_geno_phone_verification:
