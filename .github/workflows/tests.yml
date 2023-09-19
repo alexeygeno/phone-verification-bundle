@@ -17,16 +17,8 @@ jobs:
       fail-fast: true
       matrix:
         stability: [ prefer-stable ]
-        include:
-          - dependency-versions: "lowest"
-          - symfony-require: "6.0.*"
-            php-version: "8.0"
-          - symfony-require: "6.1.*"
-            php-version: "8.1"
-          - symfony-require: "6.2.*"
-            php-version: "8.1"
-          - symfony-require: "6.3.*"
-            php-version: "8.1"
+        php-version: [ '8.1' ]
+        symfony-version: [ '6.0' ]
 
     name: PHP ${{ matrix.php-version }} - Symfony ${{ matrix.symfony-require }}
 
@@ -41,16 +33,16 @@ jobs:
           ini-values: error_reporting=E_ALL
           tools: composer:v2
           coverage: xdebug
-      - name: "Install symfony/flex"
-        run: "composer require --no-progress --no-scripts --no-plugins symfony/flex"
-      - name: Install dependencies
-        uses: "ramsey/composer-install@v2"
+
+      - name: Install composer dependencies
+        uses: nick-invision/retry@v2
         with:
-          dependency-versions: "${{ matrix.dependency-versions }}"
+          command: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-plugins --no-scripts --no-progress
           max_attempts: 5
           timeout_minutes: 5
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            SYMFONY_REQUIRE: ${{ matrix.symfony-version }}
 
       - name: Execute tests
         run: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
