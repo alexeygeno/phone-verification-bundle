@@ -49,8 +49,6 @@
             "symfony/flex": true
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require-dev": {
         "doctrine/mongodb-odm-bundle": "^4.6",
         "friendsofphp/php-cs-fixer": "^3.26",
