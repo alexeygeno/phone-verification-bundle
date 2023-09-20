@@ -13,17 +13,11 @@ abstract class ControllerTestCase extends WebTestCase
 
     protected KernelBrowser $client;
 
-    /**
-     * {@inheritdoc}
-     */
     protected static function getKernelClass(): string
     {
         return \AlexGeno\PhoneVerificationBundle\Tests\TestApplication\Kernel::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -31,9 +25,6 @@ abstract class ControllerTestCase extends WebTestCase
         $this->translator = static::getContainer()->get(TranslatorInterface::class);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function tearDown(): void
     {
         static::getContainer()->get(\Predis\Client::class)->flushdb();
@@ -41,9 +32,9 @@ abstract class ControllerTestCase extends WebTestCase
     }
 
     /**
-     * Asserts that the client response is JSON and equals the given array
+     * Asserts that the client response is JSON and equals the given array.
      *
-     * @param array<mixed> $actualJson
+     * @param array<mixed> $actual
      */
     protected function assertResponseJson(array $actual): void
     {

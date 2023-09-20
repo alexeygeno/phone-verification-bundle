@@ -40,7 +40,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     }
 
     /**
-     * Load the Sender to the container.
+     * Load the Sender into the container.
      *
      * @param array<mixed> $config ['transport' => string]
      */
@@ -54,7 +54,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     }
 
     /**
-     * Process(Compiler Pass) the Manager factory to the container.
+     * Process(Compiler Pass) the Manager factory into the container.
      *
      * @param array<mixed> $config ['otp' => [...], 'rate_limits' => [...]]
      */
@@ -67,7 +67,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     }
 
     /**
-     * Process(Compiler Pass) the Redis storage to the container.
+     * Process(Compiler Pass) the Redis storage into the container.
      *
      * @param array<mixed> $config ['connection' => string, 'settings' => ['prefix' => string, 'session_key' => string, 'session_counter_key' => string]]
      */
@@ -89,7 +89,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     }
 
     /**
-     * Process(Compiler Pass) the Mongodb storage to the container.
+     * Process(Compiler Pass) the Mongodb storage into the container.
      *
      * @param array<mixed> $config ['connection' => string, 'settings' => ['collection_session' => string, 'collection_session_counter' => string]]
      */
@@ -122,7 +122,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     }
 
     /**
-     * Process(Compiler Pass) the configuration to the container parameters.
+     * Process(Compiler Pass) the configuration into the container parameters.
      *
      * @param array<mixed> $config ['storage' => [...], 'sender' => [...], 'manager' => [...]]
      */
@@ -146,9 +146,6 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
@@ -161,9 +158,6 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
         $this->loadSender($container, $config['sender']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         $configs = $container->getExtensionConfig($this->getAlias());

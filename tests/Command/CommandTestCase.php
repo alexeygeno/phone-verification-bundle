@@ -13,17 +13,11 @@ abstract class CommandTestCase extends KernelTestCase
 
     protected Application $application;
 
-    /**
-     * {@inheritdoc}
-     */
     protected static function getKernelClass(): string
     {
         return \AlexGeno\PhoneVerificationBundle\Tests\TestApplication\Kernel::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -31,9 +25,6 @@ abstract class CommandTestCase extends KernelTestCase
         $this->application = new Application(self::bootKernel());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function tearDown(): void
     {
         static::getContainer()->get(\Predis\Client::class)->flushdb();

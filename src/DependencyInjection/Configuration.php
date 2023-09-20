@@ -8,7 +8,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     *  Struct, validate, and set defaults for the Configuration
+     *  Struct, validate, and set defaults for the Configuration.
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {

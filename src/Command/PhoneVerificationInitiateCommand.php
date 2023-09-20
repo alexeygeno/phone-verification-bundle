@@ -28,7 +28,7 @@ class PhoneVerificationInitiateCommand extends Command
     }
 
     /**
-     * Configure the console options.
+     * Configure command options.
      */
     protected function configure(): void
     {
@@ -36,7 +36,7 @@ class PhoneVerificationInitiateCommand extends Command
     }
 
     /**
-     * Execute the console command.
+     * Execute the command.
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
