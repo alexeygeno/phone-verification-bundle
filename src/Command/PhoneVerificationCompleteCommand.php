@@ -27,12 +27,18 @@ class PhoneVerificationCompleteCommand extends Command
         $this->translator = $translator;
     }
 
+    /**
+     * Configure the console options.
+     */
     protected function configure(): void
     {
         $this->addOption('to', null, InputOption::VALUE_REQUIRED, 'A recipient phone number')
              ->addOption('otp', null, InputOption::VALUE_REQUIRED, 'A one-time password');
     }
 
+    /**
+     * Execute the console command.
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

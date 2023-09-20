@@ -10,6 +10,11 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+/**
+ * Load configuration and execute compiler passes.
+ *
+ * @see https://symfony.com/doc/6.0/components/dependency_injection/compilation.html#execute-code-during-compilation
+ */
 class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPassInterface
 {
     /**
@@ -18,6 +23,8 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     protected array $config;
 
     /**
+     * Get the extension configuration as an array.
+     *
      * @param array<mixed> $configs
      *
      * @return array<mixed> ['storage' => [...], 'sender' => [...], 'manager' => [...]]
@@ -33,6 +40,8 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     }
 
     /**
+     * Load the Sender to the container.
+     *
      * @param array<mixed> $config ['transport' => string]
      */
     protected function loadSender(ContainerBuilder $container, array $config): void
@@ -45,6 +54,8 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     }
 
     /**
+     * Process(Compiler Pass) the Manager factory to the container.
+     *
      * @param array<mixed> $config ['otp' => [...], 'rate_limits' => [...]]
      */
     protected function processManagerFactory(ContainerBuilder $container, array $config): void
@@ -56,6 +67,8 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     }
 
     /**
+     * Process(Compiler Pass) the Redis storage to the container.
+     *
      * @param array<mixed> $config ['connection' => string, 'settings' => ['prefix' => string, 'session_key' => string, 'session_counter_key' => string]]
      */
     private function processRedisStorage(ContainerBuilder $container, array $config): void
@@ -76,6 +89,8 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     }
 
     /**
+     * Process(Compiler Pass) the Mongodb storage to the container.
+     *
      * @param array<mixed> $config ['connection' => string, 'settings' => ['collection_session' => string, 'collection_session_counter' => string]]
      */
     protected function processMongodbStorage(ContainerBuilder $container, array $config): void
@@ -92,11 +107,11 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
 
         $doctrineMongoDbConfig = $container->resolveEnvPlaceholders(current($container->getExtensionConfig('doctrine_mongodb')), true);
 
-        // getting db name
+        // Get DB name.
         $db = $doctrineMongoDbConfig['connections'][$config['connection']]['options']['db'] ??
                     ($doctrineMongoDbConfig['default_database'] ?? false);
         if (!$db) {
-            throw new Exception("No database in the 'doctrine_mongodb' configuration.");
+            throw new Exception("No database defined in the 'doctrine_mongodb' configuration.");
         }
 
         $config['settings']['db'] = $db;
@@ -107,6 +122,8 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
     }
 
     /**
+     * Process(Compiler Pass) the configuration to the container parameters.
+     *
      * @param array<mixed> $config ['storage' => [...], 'sender' => [...], 'manager' => [...]]
      */
     protected function processParameters(ContainerBuilder $container, array $config, string $storageDriver): void
@@ -116,7 +133,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
         unset($config['storage'][$storageDriver]);
         unset($config['enabled']);
 
-        // Convert multidimensional array to 2D dot notation keys and set respective parameters
+        // Convert multidimensional array to dot notation keys and set the respective parameters
         $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($config));
         $prefix = $this->getAlias();
         foreach ($iterator as $leafValue) {
@@ -129,6 +146,9 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
@@ -136,15 +156,20 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
 
         $config = $this->config($configs, $container);
 
+        // Existence of the 'sender' key has been checked in \DependencyInjection\Configuration.
+
         $this->loadSender($container, $config['sender']);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function process(ContainerBuilder $container)
     {
         $configs = $container->getExtensionConfig($this->getAlias());
         $config = $container->resolveEnvPlaceholders($this->config($configs, $container), true);
 
-        // Existence has been checked in \DependencyInjection\Configuration
+        // Existence of the 'storage.driver' key has been checked in \DependencyInjection\Configuration.
         $storageDriver = $config['storage']['driver'];
 
         if (!isset($config['storage'][$storageDriver])) {

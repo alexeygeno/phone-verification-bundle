@@ -10,9 +10,7 @@ class SmsRecipient implements SmsRecipientInterface
     use SmsRecipientTrait;
 
     /**
-     * Sets the phone number (no spaces, international code like in +3312345678).
-     *
-     * @return $this
+     * Set the phone number.
      */
     public function phone(string $phone): static
     {

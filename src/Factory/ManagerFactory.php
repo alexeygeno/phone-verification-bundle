@@ -19,17 +19,19 @@ class ManagerFactory
         /**
          * @var array<mixed> ['otp' => [...], 'rate_limits' => [...]]
          */
-        private array $rawConfig,
+        private array $extensionConfig,
     ) {
         $this->translator = $translator;
     }
 
     /**
+     * Compute the Manager config from the extension config.
+     *
      * @return array<mixed> ['otp' => [...], 'rate_limits' => [...]]
      */
     protected function config(): array
     {
-        $config = $this->rawConfig;
+        $config = $this->extensionConfig;
 
         $config['otp']['message'] = fn ($otp) => $this->trans('otp', ['%code%' => $otp]);
         $config['rate_limits']['initiate']['message'] = fn ($phone, $periodSecs, $count) => $this->trans('initiation_rate_limit', ['%sms%' => $count, '%hours%' => $periodSecs / 60 / 60]);
@@ -40,11 +42,17 @@ class ManagerFactory
         return $config;
     }
 
+    /**
+     * Get the Initiator instance.
+     */
     public function initiator(ISender $sender): Initiator
     {
         return (new \AlexGeno\PhoneVerification\Manager($this->storage, $this->config()))->sender($sender);
     }
 
+    /**
+     * Get the Completer instance.
+     */
     public function completer(): Completer
     {
         return new \AlexGeno\PhoneVerification\Manager($this->storage, $this->config());

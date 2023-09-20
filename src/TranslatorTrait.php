@@ -12,7 +12,7 @@ trait TranslatorTrait
     protected TranslatorInterface $translator;
 
     /**
-     * Wrap TranslatorInterface::trans with 'alex_geno_phone_verification' as default domain.
+     * Wrap TranslatorInterface::trans with 'alex_geno_phone_verification' as the default domain.
      *
      * @param array<mixed> $parameters
      */

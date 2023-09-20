@@ -5,7 +5,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 return static function (ContainerConfigurator $container) {
     $services = $container->services();
 
-    // mocking redis
+    // Mock redis
     $services
         ->set('snc_redis.mock.factory', \M6Web\Component\RedisMock\RedisMockFactory::class);
 

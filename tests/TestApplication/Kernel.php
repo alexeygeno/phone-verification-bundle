@@ -9,6 +9,9 @@ final class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
+    /**
+     * {@inheritdoc}
+     */
     public function registerBundles(): iterable
     {
         return [
@@ -19,6 +22,9 @@ final class Kernel extends BaseKernel
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getProjectDir(): string
     {
         return __DIR__;

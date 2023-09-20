@@ -16,6 +16,11 @@ class Sender implements I
     ) {
     }
 
+    /**
+     * Invoke the process of sending.
+     *
+     * @return void
+     */
     public function invoke(string $to, string $text)
     {
         $this->smsChannel->notify($this->notification->subject($text), $this->smsRecipient->phone($to), $this->transport);

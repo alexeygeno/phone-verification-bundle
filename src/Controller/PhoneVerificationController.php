@@ -19,6 +19,9 @@ class PhoneVerificationController extends AbstractController
         $this->translator = $translator;
     }
 
+    /**
+     * Initiate phone verification process.
+     */
     public function initiate(string $to, Initiator $manager): JsonResponse
     {
         $response = ['ok' => true,  'message' => $this->trans('initiation_success')];
@@ -33,6 +36,9 @@ class PhoneVerificationController extends AbstractController
         return $this->json($response, $status);
     }
 
+    /**
+     * Complete phone verification process.
+     */
     public function complete(string $to, int $otp, Completer $manager): JsonResponse
     {
         $response = ['ok' => true, 'message' => $this->trans('completion_success')];

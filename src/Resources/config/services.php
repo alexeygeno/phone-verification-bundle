@@ -18,13 +18,19 @@ use Symfony\Component\Notifier\Notification\Notification;
 return static function (ContainerConfigurator $container) {
     $services = $container->services();
 
-    // @see https://symfony.com/doc/current/bundles/best_practices.html#services
-    // Services should not use autowiring or autoconfiguration. Instead, all services should be defined explicitly.
+    /*
+     * @see https://symfony.com/doc/current/bundles/best_practices.html#services
+     * Services should not use autowiring or autoconfiguration.
+     * Instead, all services should be defined explicitly.
+     */
+
+    // Controller.
     $services->set(PhoneVerificationController::class)
        ->args([service('translator')])
        ->call('setContainer', [service('service_container')])
        ->tag('controller.service_arguments');
 
+    // Commands.
     $services->set('alex_geno_phone_verification.command.initiate', PhoneVerificationInitiateCommand::class)
              ->args([service('alex_geno_phone_verification.manager.initiator'),
                     service('translator')])
@@ -35,6 +41,7 @@ return static function (ContainerConfigurator $container) {
                     service('translator')])
               ->tag('console.command');
 
+    // Manager.
     $services
         ->set('alex_geno_phone_verification.manager.factory', ManagerFactory::class);
 
@@ -50,6 +57,7 @@ return static function (ContainerConfigurator $container) {
         ->factory([service('alex_geno_phone_verification.manager.factory'), 'completer'])
         ->alias(Completer::class, 'alex_geno_phone_verification.manager.completer');
 
+    // Sender.
     $services
         ->set('alex_geno_phone_verification.sender', Sender::class)
         ->alias(ISender::class, 'alex_geno_phone_verification.sender');
@@ -60,6 +68,7 @@ return static function (ContainerConfigurator $container) {
     $services
         ->set('alex_geno_phone_verification.sender.sms_recipient.empty', SmsRecipient::class);
 
+    // Storage.
     $services
         ->set('alex_geno_phone_verification.storage')
         ->alias(IStorage::class, 'alex_geno_phone_verification.storage');

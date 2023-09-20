@@ -11,6 +11,8 @@ class PhoneVerificationCommandsTest extends CommandTestCase
     use PHPMock;
 
     /**
+     * Test verification process using commands.
+     *
      * @runInSeparateProcess
      *
      * @see https://github.com/php-mock/php-mock-phpunit#restrictions
@@ -35,6 +37,9 @@ class PhoneVerificationCommandsTest extends CommandTestCase
         $commandCompleteTester->assertCommandIsSuccessful();
     }
 
+    /**
+     * Test the failure of the 'initiate' command.
+     */
     public function testInitiateFail(): void
     {
         $to = '+15417543010';
@@ -52,6 +57,9 @@ class PhoneVerificationCommandsTest extends CommandTestCase
         }
     }
 
+    /**
+     * Test the failure of the 'complete' command.
+     */
     public function testCompleteFail(): void
     {
         $to = '+15417543010';
