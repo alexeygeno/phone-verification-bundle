@@ -30,7 +30,7 @@ alex_geno_phone_verification:
           collection_session_counter: session_counter
 # ...
 ```
-**Note:** Values `300` and `86400` in index options are what the configuration has by default in the following `.env` vars
+**Note:** Values `300` and `86400` in the index options are what the configuration has by default in the following `.env` vars
 ```dotenv
 # .env
 PHONE_VERIFICATION_RATE_LIMIT_COMPLETE_PERIOD_SECS=300

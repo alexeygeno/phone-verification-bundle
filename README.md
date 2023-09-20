@@ -14,17 +14,17 @@ Signing in or signing up on a modern website or mobile app typically follows the
 This library is built on top of [ alexeygeno/phone-verification-php ](https://github.com/alexeygeno/phone-verification-php) and allows to set this up
 
 ## Supported features
-- [Easy](#different-storages-and-sms-services) switching between different storages and sms services
+- [Easy](#different-storages-and-sms-services) switching between different storages and SMS services
 - Configurable length and expiration time for [OTP](https://en.wikipedia.org/wiki/One-time_password)
 - Configurable rate limits
 - Localization
 - Usage with [dependency injection](https://symfony.com/doc/current/service_container.html#injecting-services-config-into-a-service) and [console commands](https://symfony.com/doc/current/console.html)
-- Out-of-the-box routes for quick start
+- [Flex recipe](https://github.com/symfony/recipes-contrib/tree/main/alexgeno/phone-verification-bundle/1.0) for quick start
 
 ## Requirements
 - [Symfony 6.x](https://symfony.com/doc/6.0/index.html)
-- Any of SMS services: [vonage](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Vonage/README.md), [twilio](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Twilio/README.md), [messagebird](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/MessageBird/README.md)  and [many more ](https://symfony.com/doc/6.0/notifier.html#sms-channel)
-- Any of supported storages: [snc/redis-bundle](https://github.com/snc/SncRedisBundle), [doctrine/mongodb-odm-bundle](https://github.com/doctrine/DoctrineMongoDBBundle)
+- Any of the SMS services available in [Symfony Notifier SMS Channel](https://symfony.com/doc/current/notifier.html#sms-channel): [vonage](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Vonage/README.md), [twilio](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Twilio/README.md), [messagebird](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/MessageBird/README.md)  and [many more ](https://symfony.com/doc/6.0/notifier.html#sms-channel)
+- Any of the supported storages: [snc/redis-bundle](https://github.com/snc/SncRedisBundle), [doctrine/mongodb-odm-bundle](https://github.com/doctrine/DoctrineMongoDBBundle)
 ## Installation
 ```shell
 composer require alexgeno/phone-verification-bundle snc/redis-bundle predis/predis symfony/vonage-notifier
@@ -66,7 +66,7 @@ The bundle will be automatically enabled and configured by a [Flex](https://symf
 In case you don't use [Flex](https://symfony.com/doc/current/quick_tour/flex_recipes.html#flex-recipes-and-aliases), see [docs/CONFIGURATION.md](docs/CONFIGURATION.md) on how to manually do it
 
 ## Different storages and SMS services
-To switch between [available](#requirements) storages and SMS services, install a respective package and update the configuration. For example, to use **Mongodb** as a storage and **Twilio** as an SMS service:
+To switch between [available](#requirements) storages and SMS services, install the respective package and update the configuration. For example, to use **Mongodb** as a storage and **Twilio** as an SMS service:
 ```shell
 composer require doctrine/mongodb-odm-bundle symfony/twilio-notifier
 ```
