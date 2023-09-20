@@ -23,7 +23,7 @@ This library is built on top of [ alexeygeno/phone-verification-php ](https://gi
 
 ## Requirements
 - [Symfony 6.x](https://symfony.com/doc/6.0/index.html)
-- Any of the SMS services available in [Symfony Notifier SMS Channel](https://symfony.com/doc/current/notifier.html#sms-channel): [vonage](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Vonage/README.md), [twilio](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/Twilio/README.md), [messagebird](https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Notifier/Bridge/MessageBird/README.md)  and [many more ](https://symfony.com/doc/6.0/notifier.html#sms-channel)
+- Any of the SMS services available in [Symfony Notifier SMS Channel](https://symfony.com/doc/current/notifier.html#sms-channel): [symfony/vonage-notifier](https://github.com/symfony/vonage-notifier), [symfony/twilio-notifier](https://github.com/symfony/twilio-notifier), [symfony/message-bird-notifier](https://github.com/symfony/message-bird-notifier)  and [many more ](https://symfony.com/doc/current/notifier.html#sms-channel)
 - Any of the supported storages: [snc/redis-bundle](https://github.com/snc/SncRedisBundle), [doctrine/mongodb-odm-bundle](https://github.com/doctrine/DoctrineMongoDBBundle)
 ## Installation
 ```shell
