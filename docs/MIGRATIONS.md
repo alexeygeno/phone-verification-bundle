@@ -4,20 +4,28 @@ Unfortunately, [mongodb-migrations-bundle](https://github.com/doesntmattr/mongod
 However, there are `UP` and `DOWN` for making it in a hand-made manner via [mongosh](https://www.mongodb.com/docs/mongodb-shell/)
 #### UP
 ```javascript
-db.phone_verification.session.createIndex({"id":1}, {unique:true, name:"id_unique_index"});
-db.phone_verification.session.createIndex({"updated":1}, {expireAfterSeconds:300, name:"updated_expiration_index"});
-db.phone_verification.session_counter.createIndex({"id":1}, {unique:true, name:"id_unique_index"});
-db.phone_verification.session_counter.createIndex({"created":1}, {expireAfterSeconds:86400, name:"created_expiration_index"});
+use phone_verification;
+
+db.session.createIndex({"id":1}, {unique:true, name:"id_unique_index"});
+db.session.createIndex({"updated":1}, {expireAfterSeconds:300, name:"updated_expiration_index"});
+db.session_counter.createIndex({"id":1}, {unique:true, name:"id_unique_index"});
+db.session_counter.createIndex({"created":1}, {expireAfterSeconds:86400, name:"created_expiration_index"});
 ```
 #### DOWN
 ```javascript
-db.phone_verification.session.dropIndex("id_unique_index");
-db.phone_verification.session.dropIndex("updated_expiration_index");
-db.phone_verification.session_counter.dropIndex("id_unique_index");
-db.phone_verification.session_counter.dropIndex("created_expiration_index");
+use phone_verification;
+
+db.session.dropIndex("id_unique_index");
+db.session.dropIndex("updated_expiration_index");
+db.session_counter.dropIndex("id_unique_index");
+db.session_counter.dropIndex("created_expiration_index");
+
+db.session.drop();
+db.session_counter.drop();
 ```
-**Note:** Because MongoDB creates a collection implicitly when the collection is first referenced in a command, it's enough to take care only about indexes  
-**Note:** Collection names `session` and `session_counter` are what the configuration has by default in the `storage.mongodb.settings` section 
+
+**Note:** MongoDB creates a collection implicitly when the collection is first referenced in a command  
+**Note:** Collection names `session` and `session_counter` are defaults in the `storage.mongodb.settings` section of the configuration
 ```yaml
 # config/packages/alex_geno_phone_verification.yaml
 alex_geno_phone_verification:
@@ -30,7 +38,7 @@ alex_geno_phone_verification:
           collection_session_counter: session_counter
 # ...
 ```
-**Note:** Values `300` and `86400` in the index options are what the configuration has by default in the following `.env` vars
+**Note:** Values `300` and `86400` in the index options are defaults for the following `.env` vars
 ```dotenv
 # .env
 PHONE_VERIFICATION_RATE_LIMIT_COMPLETE_PERIOD_SECS=300
