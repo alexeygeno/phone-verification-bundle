@@ -71,7 +71,7 @@ class AlexGenoPhoneVerificationExtension extends Extension implements CompilerPa
      *
      * @param array<mixed> $config ['connection' => string, 'settings' => ['prefix' => string, 'session_key' => string, 'session_counter_key' => string]]
      */
-    private function processRedisStorage(ContainerBuilder $container, array $config): void
+    protected function processRedisStorage(ContainerBuilder $container, array $config): void
     {
         if (!$container->hasExtension('snc_redis')) {
             throw new Exception("snc/redis-bundle must be installed to use 'redis' as a storage");
